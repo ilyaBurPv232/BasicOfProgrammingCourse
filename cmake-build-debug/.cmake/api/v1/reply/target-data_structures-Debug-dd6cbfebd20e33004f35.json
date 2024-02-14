@@ -51,7 +51,8 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -70,7 +71,8 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -86,6 +88,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "libs/data_structures/vector/vector.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "libs/data_structures/vector/vectorVoid.c",
 			"sourceGroupIndex" : 0
 		}
 	],

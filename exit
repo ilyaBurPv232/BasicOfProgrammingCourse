@@ -1,0 +1,51 @@
+[33mcommit 4813de7c6f1ac600f743b6adebce8ff898a0fe9f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: ilya_bur <pv.232.ilya.burtcev@gmail.com>
+Date:   Wed Feb 14 12:56:24 2024 +0300
+
+    refactoring
+
+ libs/data_structures/vector/vector.c | 8 [32m+++++++[m[31m-[m
+ main.c                               | 3 [32m++[m[31m-[m
+ 2 files changed, 9 insertions(+), 2 deletions(-)
+
+[33mcommit 89fafece071f15d566d064a4d07c6b3aad83208d[m
+Author: ilya_bur <pv.232.ilya.burtcev@gmail.com>
+Date:   Wed Feb 14 12:38:04 2024 +0300
+
+    append push / pop functions
+
+ libs/data_structures/vector/vector.c | 16 [32m++++++++[m[31m--[m
+ libs/data_structures/vector/vector.h | 10 [32m++++++[m
+ main.c                               | 60 [32m++++++++++++++++++++++++++++++++++++[m
+ 3 files changed, 84 insertions(+), 2 deletions(-)
+
+[33mcommit f64c459126c55520a304894aaaeaafc18bc52b9f[m
+Author: ilya_bur <pv.232.ilya.burtcev@gmail.com>
+Date:   Wed Feb 14 12:14:00 2024 +0300
+
+    append push / pop functions
+
+ libs/data_structures/vector/vector.c | 32 [32m++++++++++++++++++++++++[m[31m-[m
+ libs/data_structures/vector/vector.h | 17 [32m+++++++++++++[m
+ main.c                               | 46 [32m++++++++++++++++++++++++++++++++[m[31m----[m
+ 3 files changed, 90 insertions(+), 5 deletions(-)
+
+[33mcommit ee3c0dfe55e893735a1fbd10ffecca425bd1a5ea[m
+Author: ilya_bur <pv.232.ilya.burtcev@gmail.com>
+Date:   Wed Feb 14 11:13:54 2024 +0300
+
+    memory usage of vector
+
+ libs/data_structures/vector/vector.c |  54 [32m++++++[m
+ libs/data_structures/vector/vector.h |  28 [32m+++[m
+ main.c                               | 327 [32m+[m[31m----------------------------------[m
+ 3 files changed, 90 insertions(+), 319 deletions(-)
+
+[33mcommit 2045a4129de7bce6486073fc88b332ca649416e3[m
+Author: ilya_bur <pv.232.ilya.burtcev@gmail.com>
+Date:   Wed Feb 14 09:46:04 2024 +0300
+
+    first commit
+
+ main.c | 322 [32m+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 322 insertions(+)
