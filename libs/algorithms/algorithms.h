@@ -1,0 +1,8 @@
+//
+// Created by Burcevi on 02.02.2024.
+//
+
+#ifndef UNTITLED1_ALGORITHMS_H
+#define UNTITLED1_ALGORITHMS_H
+
+#endif //UNTITLED1_ALGORITHMS_H
