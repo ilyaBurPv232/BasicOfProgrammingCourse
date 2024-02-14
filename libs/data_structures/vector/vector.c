@@ -1,5 +1,6 @@
 #include <malloc.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "vector.h"
 
 
@@ -27,7 +28,6 @@ void reserve(vector *v, size_t newCapacity) {
         v->capacity = newCapacity;
     } else {
         v->data = realloc(v->data, sizeof(int) * newCapacity);
-        v->size = newCapacity;
         v->capacity = newCapacity;
         if (v->data == NULL) {
             fprintf(stderr, "bad alloc");
@@ -51,4 +51,34 @@ void deleteVector(vector *v) {
     free(v->data);
     v->size = 0;
     v->capacity = 0;
+}
+
+bool isEmpty(vector *v) {
+    return v->size == 0;
+}
+
+bool isFull(vector *v) {
+    return v->size == v->capacity;
+}
+
+int getVectorValue(vector *v, size_t i) {
+    return v->data[i];
+}
+
+void pushBack(vector *v, int x) {
+    if (isEmpty(v)) {
+        reserve(v, 1);
+        v->data[0] = x;
+        v->size++;
+    } else {
+        if (isFull(v))
+            reserve(v, v->capacity * 2);
+        v->data[v->size] = x;
+        v->size++;
+    }
+}
+
+void popBack(vector *v){
+    if(!isEmpty(v))
+        v->size--;
 }
