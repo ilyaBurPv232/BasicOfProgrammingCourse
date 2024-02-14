@@ -15,6 +15,19 @@ typedef struct vectorVoid {
                          // то поле baseTypeSize = sizeof(float)
 } vectorVoid;
 
+//создает вектор типа baseTypeSize
+vectorVoid createVectorV(size_t n, size_t baseTypeSize);
 
+//изменяет текущий объём выделенной памяти
+void reserveV(vectorVoid *v, size_t newCapacity);
+
+//освобождает память, выделенную под неиспользуемые элементы
+void shrinkToFitV(vectorVoid *v);
+
+//удаляет элементы из контейнера, но не освобождает выделенную память
+void clearV(vectorVoid *v);
+
+//освобождает память, выделенную вектору
+void deleteVectorV(vectorVoid *v);
 
 #endif
