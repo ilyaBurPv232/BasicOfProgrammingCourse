@@ -7,8 +7,10 @@
 vector createVector(size_t n) {
     if (n == 0)
         return (vector) {NULL, 0, n};
-
     vector vector1 = {malloc(sizeof(int) * n), 0, n};
+    //если удалось выделить память выводим наш вектор
+    //иначе выводим ошибку "bad alloc"
+
     if (vector1.data != NULL)
         return vector1;
     else {
@@ -18,14 +20,18 @@ vector createVector(size_t n) {
 }
 
 void reserve(vector *v, size_t newCapacity) {
+    //проверка особых случаев
     if (newCapacity == 0) {
         v->data = NULL;
         v->size = newCapacity;
         v->capacity = newCapacity;
+
     } else if (newCapacity < v->size) {
         v->data = realloc(v->data, sizeof(int) * newCapacity);
         v->size = newCapacity;
         v->capacity = newCapacity;
+
+        //если случай обычный
     } else {
         v->data = realloc(v->data, sizeof(int) * newCapacity);
         v->capacity = newCapacity;

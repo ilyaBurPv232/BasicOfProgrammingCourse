@@ -100,10 +100,11 @@ void test() {
 
     //тесты front
     test_front_oneElementInVector();
-    
 }
 
 int main() {
+
     test();
+
     return 0;
 }
