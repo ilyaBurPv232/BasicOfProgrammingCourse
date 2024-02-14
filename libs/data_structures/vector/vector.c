@@ -78,7 +78,19 @@ void pushBack(vector *v, int x) {
     }
 }
 
-void popBack(vector *v){
-    if(!isEmpty(v))
+void popBack(vector *v) {
+    if (!isEmpty(v))
         v->size--;
+}
+
+int *atVector(vector *v, size_t index) {
+    return &v->data[index];
+}
+
+int *back(vector *v) {
+    return &v->data[v->size - 1];
+}
+
+int *front(vector *v) {
+    return &v->data[0];
 }
