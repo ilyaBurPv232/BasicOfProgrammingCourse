@@ -1,22 +1,14 @@
-#include <stdio.h>
-#include "libs/data_structures/vector/vectorVoid.h"
-
+#include "libs/data_structures/matrix/matrix.h"
 
 int main() {
-    size_t n;
-    scanf("%zd", &n);
-    vectorVoid v = createVectorV(0, sizeof(float));
-    for (int i = 0; i < n; i++) {
-        float x;
-        scanf("%f", &x);
-        pushBackV(&v, &x);
-    }
-    for (int i = 0; i < n; i++) {
-        float x;
-        getVectorValueV(&v, i, &x);
-        printf("%f ", x);
-    }
 
+    matrix m = getMemMatrix(3, 3);
+
+    inputMatrix(&m);
+
+    insertionSortRowsMatrixByRowCriteria(&m, getSum);
+
+    outputMatrix(m);
 
     return 0;
 }

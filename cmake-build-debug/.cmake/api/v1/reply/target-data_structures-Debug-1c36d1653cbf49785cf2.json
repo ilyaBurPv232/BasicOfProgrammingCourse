@@ -52,7 +52,8 @@
 			[
 				0,
 				1,
-				2
+				2,
+				3
 			]
 		}
 	],
@@ -72,7 +73,8 @@
 			[
 				0,
 				1,
-				2
+				2,
+				3
 			]
 		}
 	],
@@ -94,6 +96,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "libs/data_structures/vector/vectorVoid.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "libs/data_structures/matrix/matrix.c",
 			"sourceGroupIndex" : 0
 		}
 	],

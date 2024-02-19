@@ -3,7 +3,6 @@
 #include "ordered_array.h"
 
 
-// возвращает пустое множество, в которое можно вставить capacity элементов
 ordered_array_set ordered_array_set_create(size_t capacity) {
     ordered_array_set set;
     set.data = malloc(capacity * sizeof(int)); // выделение памяти для массива элементов
@@ -22,7 +21,6 @@ static void ordered_array_set_shrink_in_size(ordered_array_set *a) {
     }
 }
 
-// возвращает множество, состоящее из элементов массива a размера size
 ordered_array_set ordered_array_set_create_from_array(const int *a, size_t size) {
     ordered_array_set set = ordered_array_set_create(size);
 
@@ -35,15 +33,12 @@ ordered_array_set ordered_array_set_create_from_array(const int *a, size_t size)
     return set;
 }
 
-// возвращает значение ’истина’, если элементы множеств set1 и set2 равны
-// иначе - ’ложь’
 bool ordered_array_set_isEqual(ordered_array_set set1, ordered_array_set set2) {
     if (set1.size != set2.size)
         return false;
     return memcmp(set1.data, set2.data, sizeof(int) * set1.size) == 0;
 }
 
-// добавляет элемент value в множество set
 void ordered_array_set_insert(ordered_array_set *set, int value) {
     if (ordered_array_set_in(set, value) == set->size) {
         ordered_array_set_isAbleAppend(set);
@@ -68,7 +63,6 @@ bool ordered_array_set_isSubset(ordered_array_set subset, ordered_array_set set)
     return true;
 }
 
-// возвращает пересечение множеств set1 и set2
 ordered_array_set ordered_array_set_intersection(ordered_array_set set1, ordered_array_set set2) {
     ordered_array_set result;
     result.size = 0;
@@ -99,7 +93,6 @@ ordered_array_set ordered_array_set_intersection(ordered_array_set set1, ordered
     return result;
 }
 
-// возвращает объединение множеств set1 и set2
 ordered_array_set ordered_array_set_union(ordered_array_set set1, ordered_array_set set2) {
     ordered_array_set result;
     result.data = malloc((set1.size + set2.size) * sizeof(int));
@@ -147,30 +140,23 @@ ordered_array_set ordered_array_set_difference(ordered_array_set set1, ordered_a
         }
     }
 
-    // добавляем оставшиеся элементы set1 в разность множеств
     while (i < set1.size) {
         difference_set.data[k++] = set1.data[i++];
     }
 
-    difference_set.size = k; // устанавливаем размер разности множеств
+    difference_set.size = k;
 
     return difference_set;
 }
 
-// возбуждает исключение, если в множество по адресу set
-// нельзя вставить элемент
 void ordered_array_set_isAbleAppend(ordered_array_set *set) {
     assert(set->size < set->capacity);
 }
 
-// возвращает значение позицию элемента в множестве,
-// если значение value имеется в множестве set,
-// иначе - n
 size_t ordered_array_set_in(ordered_array_set *set, int value) {
     return binarySearch_(set->data, set->size, value);
 }
 
-// вывод множества set
 void ordered_array_set_print(ordered_array_set set) {
     printf("{");
     int is_empty = 1;
@@ -185,20 +171,16 @@ void ordered_array_set_print(ordered_array_set set) {
         printf("\b\b}\n");
 }
 
-// возвращает симметрическую разность множеств set1 и set2
 ordered_array_set ordered_array_set_symmetricDifference(ordered_array_set set1, ordered_array_set set2) {
-    // Создаем новое множество для хранения симметрической разности
     ordered_array_set result;
     result.size = 0;
     result.capacity = set1.size + set2.size;
     result.data = (int *) malloc(result.capacity * sizeof(int));
 
-    // Перебираем элементы первого множества
     for (size_t i = 0; i < set1.size; i++) {
         int value = set1.data[i];
         int found = 0;
 
-        // Проверяем, есть ли текущий элемент во втором множестве
         for (size_t j = 0; j < set2.size; j++) {
             if (set2.data[j] == value) {
                 found = 1;
@@ -206,19 +188,16 @@ ordered_array_set ordered_array_set_symmetricDifference(ordered_array_set set1, 
             }
         }
 
-        // Если элемент не найден во втором множестве, добавляем его в результат
         if (!found) {
             result.data[result.size] = value;
             result.size++;
         }
     }
 
-    // Перебираем элементы второго множества
     for (size_t i = 0; i < set2.size; i++) {
         int value = set2.data[i];
         int found = 0;
 
-        // Проверяем, есть ли текущий элемент в первом множестве
         for (size_t j = 0; j < set1.size; j++) {
             if (set1.data[j] == value) {
                 found = 1;
@@ -226,7 +205,6 @@ ordered_array_set ordered_array_set_symmetricDifference(ordered_array_set set1, 
             }
         }
 
-        // Если элемент не найден в первом множестве, добавляем его в результат
         if (!found) {
             result.data[result.size] = value;
             result.size++;

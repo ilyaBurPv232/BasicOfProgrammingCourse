@@ -3,7 +3,7 @@
 #include <string.h>
 #include "unordered_array.h"
 
-// возвращает пустое множество для capacity элементов
+
 unordered_array_set unordered_array_set_create(size_t capacity) {
     return (unordered_array_set) {malloc(sizeof(int) * capacity), 0, capacity};
 }
@@ -18,7 +18,6 @@ static void unordered_array_set_shrink_to_fit(unordered_array_set *a) {
     }
 }
 
-// возвращает множество, состоящее из элементов массива a размера size.
 unordered_array_set unordered_array_set_create_from_array(const int *a, size_t size) {
     unordered_array_set set = unordered_array_set_create(size);
     for (size_t i = 0; i < size; i++) {
@@ -30,14 +29,10 @@ unordered_array_set unordered_array_set_create_from_array(const int *a, size_t s
     return set;
 }
 
-// возвращает позицию элемента в множестве,
-// если значение value имеется в множестве set, иначе - n
 size_t unordered_array_set_in(unordered_array_set *set, int value) {
     return linearSearch_(set->data, set->size, value);
 }
 
-// возвращает значение ’истина’, если subset является подмножеством set
-// иначе - ’ложь’
 size_t unordered_array_set_isSubset(unordered_array_set subset, unordered_array_set set) {
     for (size_t i = 0; i < subset.size; i++) {
         bool found = false;
@@ -55,13 +50,10 @@ size_t unordered_array_set_isSubset(unordered_array_set subset, unordered_array_
     return true;
 }
 
-//Сравнивает два целых числа, представленных в виде указателей на void.
 static int compare_ints(const void *a, const void *b) {
     return *(int *) a - *(int *) b;
 }
 
-// возвращает значение ’истина’, если элементы множеств set1 и set2 равны
-// иначе - ’ложь’
 bool unordered_array_set_isEqual(unordered_array_set set1, unordered_array_set set2) {
     if (set1.size != set2.size)
         return 0;
@@ -72,13 +64,10 @@ bool unordered_array_set_isEqual(unordered_array_set set1, unordered_array_set s
     return memcmp(set1.data, set2.data, sizeof(int) * set1.size) == 0;
 }
 
-// возбуждает исключение, если в множество по адресу set
-// нельзя вставить элемент
 void unordered_array_set_isAbleAppend(unordered_array_set *set) {
     assert(set->size < set->capacity);
 }
 
-// добавляет элемент value в множество set
 void unordered_array_set_insert(unordered_array_set *set, int value) {
     if (unordered_array_set_in(set, value) == set->size) {
         unordered_array_set_isAbleAppend(set);
@@ -86,7 +75,6 @@ void unordered_array_set_insert(unordered_array_set *set, int value) {
     }
 }
 
-// удаляет элемент value из множества set
 void unordered_array_set_deleteElement(unordered_array_set *set, int value) {
     size_t index_value = unordered_array_set_in(set, value);
 
@@ -96,7 +84,6 @@ void unordered_array_set_deleteElement(unordered_array_set *set, int value) {
     }
 }
 
-// возвращает объединение множеств set1 и set2.
 unordered_array_set unordered_array_set_union(unordered_array_set set1, unordered_array_set set2) {
     size_t new_capacity = set1.size + set2.size;
     unordered_array_set set = unordered_array_set_create(new_capacity);
@@ -114,7 +101,6 @@ unordered_array_set unordered_array_set_union(unordered_array_set set1, unordere
     return set;
 }
 
-// возвращает пересечение множеств set1 и set2
 unordered_array_set unordered_array_set_intersection(unordered_array_set set1, unordered_array_set set2) {
     size_t new_capacity = set1.size < set2.size ? set1.size : set2.size;
     unordered_array_set set = unordered_array_set_create(new_capacity);
@@ -126,7 +112,6 @@ unordered_array_set unordered_array_set_intersection(unordered_array_set set1, u
     return set;
 }
 
-// возвращает разность множеств set1 и set2
 unordered_array_set unordered_array_set_difference(unordered_array_set set1, unordered_array_set set2) {
     size_t new_capacity = set1.size;
     unordered_array_set set = unordered_array_set_create(new_capacity);
@@ -138,7 +123,6 @@ unordered_array_set unordered_array_set_difference(unordered_array_set set1, uno
     return set;
 }
 
-// возвращает дополнение до универсума множества set
 unordered_array_set unordered_array_set_complement(unordered_array_set set, unordered_array_set universumSet) {
     size_t new_capacity = universumSet.size;
     unordered_array_set new_set = unordered_array_set_create(new_capacity);
@@ -152,7 +136,6 @@ unordered_array_set unordered_array_set_complement(unordered_array_set set, unor
     return new_set;
 }
 
-// возвращает симметрическую разность множеств set1 и set2
 unordered_array_set unordered_array_set_symmetricDifference(unordered_array_set set1, unordered_array_set set2) {
     unordered_array_set universum = unordered_array_set_union(set1, set2);
     unordered_array_set intersection = unordered_array_set_intersection(set1, set2);
@@ -165,7 +148,6 @@ unordered_array_set unordered_array_set_symmetricDifference(unordered_array_set 
     return symmetric;
 }
 
-// вывод множества set
 void unordered_array_set_print(unordered_array_set set) {
     printf("{");
     int is_empty = 1;
@@ -180,7 +162,6 @@ void unordered_array_set_print(unordered_array_set set) {
         printf("\b\b}\n");
 }
 
-// освобождает память, занимаемую множеством set
 void unordered_array_set_delete(unordered_array_set *set) {
     free(set->data);
     set->data = NULL;
