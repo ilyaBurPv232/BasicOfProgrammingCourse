@@ -102,20 +102,20 @@ void insertionSortRowsMatrixByRowCriteria(matrix *m,
         temp[i] = res;
     }
 
-    bool isSorted;
+    int min_idx;
     for (int j = 0; j < m->nRows; ++j) {
-        isSorted = true;
-        for (int i = 0; i < m->nRows - 1; ++i) {
-            if (temp[i] <= temp[i + 1]) continue;
-            else {
-                mem_num = temp[i];
-                temp[i] = temp[i + 1];
-                temp[i + 1] = mem_num;
-
-                swapRows(m, i, i + 1);
-                isSorted = false;
+        min_idx = j;
+        for (int i = j + 1; i < m->nRows; ++i) {
+            if (temp[i] < temp[min_idx]) {
+                min_idx = i;
             }
-            if (isSorted) break;
+        }
+        if (min_idx != j) {
+            mem_num = temp[j];
+            temp[j] = temp[min_idx];
+            temp[min_idx] = mem_num;
+
+            swapRows(m, j, min_idx);
         }
     }
 }
@@ -132,15 +132,15 @@ void selectionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int)
         temp[i] = result;
     }
 
-    int min_pos, temp_pepe;
+    int min_pos, temp_pos;
     for (int i = 0; i < m->nCols; i++) {
         min_pos = i;
         for (int j = i + 1; j < m->nCols; j++)
             if (temp[min_pos] > temp[j])
                 min_pos = j;
-        temp_pepe = temp[min_pos];
+        temp_pos = temp[min_pos];
         temp[min_pos] = temp[i];
-        temp[i] = temp_pepe;
+        temp[i] = temp_pos;
 
         swapColumns(m, min_pos, i);
     }

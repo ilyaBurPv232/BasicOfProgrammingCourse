@@ -70,3 +70,7 @@
 2	68	7300641867232020	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	b83aec4368fa8a80
 68	115	7300641867705332	libs/data_structures/libdata_structures.a	c1430cb0ecce9ece
 115	172	7300641868249275	unikum.exe	e7a333c856316057
+2	78	7301370553035137	CMakeFiles/unikum.dir/main.c.obj	8176c0408c16d153
+6	103	7301370553275147	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	b83aec4368fa8a80
+103	153	7301370553783426	libs/data_structures/libdata_structures.a	c1430cb0ecce9ece
+153	220	7301370554428685	unikum.exe	e7a333c856316057
