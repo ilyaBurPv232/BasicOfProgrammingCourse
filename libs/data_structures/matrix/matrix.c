@@ -5,6 +5,12 @@
 #include <stdbool.h>
 #include <memory.h>
 
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void inputArray(int *const a, const size_t n) {
     for (size_t i = 0; i < n; i++) {
         scanf("%d", &a[i]);
@@ -38,6 +44,7 @@ matrix *getMemArrayOfMatrices(int nMatrices,
 void freeMemMatrix(matrix *m) {
     for (int i = 0; i < m->nRows; ++i)
         free(m->values[i]);
+    free(m->values);
 }
 
 void freeMemMatrices(matrix *ms, int nMatrices) {
@@ -200,4 +207,58 @@ bool isSymmetricMatrix(matrix *m) {
     }
 
     return true;
+}
+
+void transposeSquareMatrix(matrix *m) {
+    matrix temp = getMemMatrix(m->nRows, m->nCols);
+    for (int i = 0; i < m->nRows; ++i) {
+        for (int j = 0; j < m->nCols; ++j) {
+            temp.values[j][i] = m->values[i][j];
+        }
+    }
+    m->values = temp.values;
+}
+
+void transposeMatrix(matrix *m) {
+    matrix temp = getMemMatrix(m->nCols, m->nRows);
+    for (int i = 0; i < m->nRows; ++i) {
+        for (int j = 0; j < m->nCols; ++j) {
+            temp.values[j][i] = m->values[i][j];
+        }
+    }
+    swap(&m->nRows, &m->nCols);
+    m->values = temp.values;
+
+}
+
+position getMinValuePos(matrix m) {
+    position p = {0, 0};
+    int min = m.values[0][0];
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+
+            if (min > m.values[i][j]) {
+                min = m.values[i][j];
+                p.rowIndex = i;
+                p.colIndex = j;
+            }
+        }
+    }
+    return p;
+}
+
+position getMaxValuePos(matrix m) {
+    position p = {0, 0};
+    int max = m.values[0][0];
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+
+            if (max < m.values[i][j]) {
+                max = m.values[i][j];
+                p.rowIndex = i;
+                p.colIndex = j;
+            }
+        }
+    }
+    return p;
 }

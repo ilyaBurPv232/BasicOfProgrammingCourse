@@ -76,4 +76,17 @@ bool isEMatrix(matrix *m);
 // проверка матрицы на симметричность
 bool isSymmetricMatrix(matrix *m);
 
+// транспонирует квадратную
+// матрицу m.
+void transposeSquareMatrix(matrix *m);
+
+//транспонирует матрицу m.
+void transposeMatrix(matrix *m);
+
+//находит позицию минимума
+position getMinValuePos(matrix m);
+
+//находит максимум в матрице
+position getMaxValuePos(matrix m);
+
 #endif
