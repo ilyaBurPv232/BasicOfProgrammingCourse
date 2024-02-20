@@ -1,6 +1,7 @@
 #ifndef UNIKUM_MATRIX_H
 #define UNIKUM_MATRIX_H
 
+#include <stdbool.h>
 
 typedef struct matrix {
     int **values; // элементы матрицы
@@ -29,35 +30,50 @@ void freeMemMatrix(matrix *m);
 // выделенную под хранение массива ms из nMatrices матриц.
 void freeMemMatrices(matrix *ms, int nMatrices);
 
-//Ввод матрицы m.
+// Ввод матрицы m.
 void inputMatrix(matrix *m);
 
-//ввод массива из nMatrices матриц, хранящейся по адресу ms.
+// ввод массива из nMatrices матриц, хранящейся по адресу ms.
 void inputMatrices(matrix *ms, int nMatrices);
 
-//Вывод матрицы m.
+// Вывод матрицы m.
 void outputMatrix(matrix m);
 
-//вывод массива из nMatrices матриц, хранящейся по адресу ms.
+// вывод массива из nMatrices матриц, хранящейся по адресу ms.
 void outputMatrices(matrix *ms, int nMatrices);
 
 
-//Обмен строк с порядковыминомерами i1 и i2 в матрице m.
+// Обмен строк с порядковыминомерами i1 и i2 в матрице m.
 void swapRows(matrix *m, int i1, int i2);
 
-//обмен колонок с порядковыми номерами j1 и j2 в матрице m.
+// обмен колонок с порядковыми номерами j1 и j2 в матрице m.
 void swapColumns(matrix *m, int j1, int j2);
 
-//по идее должна быть в либе array.h, но да ладно
-//функция для вычисления суммы для одномерного массива.
+// по идее должна быть в либе array.h, но да ладно
+// функция для вычисления суммы для одномерного массива.
 int getSum(int *a, int n);
 
-//
+// Считает значение
+// функции getSum для каждой строки матрицы. Результаты сохраняются в промежуточный массив.
 void insertionSortRowsMatrixByRowCriteria(matrix *m,
                                           int (*criteria)(int *, int));
 
-//
+// Выполняет сортировку выбором столбцов
+// матрицы m по неубыванию значения функции criteria применяемой для столбцов
 void selectionSortColsMatrixByColCriteria(matrix *m,
                                           int (*criteria)(int *, int));
+
+// возвращает значение ’истина’, если
+// матрица m является квадратной, ложь – в противном случае
+bool isSquareMatrix(matrix *m);
+
+// проварка на равенство матриц
+bool areTwoMatricesEqual(matrix *m1, matrix *m2);
+
+// Проверка на то что является ли матрица единичной
+bool isEMatrix(matrix *m);
+
+// проверка матрицы на симметричность
+bool isSymmetricMatrix(matrix *m);
 
 #endif

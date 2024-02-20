@@ -1,14 +1,13 @@
+#include <stdio.h>
 #include "libs/data_structures/matrix/matrix.h"
 
 int main() {
 
-    matrix m = getMemMatrix(3, 3);
+    matrix m1 = getMemMatrix(3, 3);
+    inputMatrix(&m1);
 
-    inputMatrix(&m);
-
-    insertionSortRowsMatrixByRowCriteria(&m, getSum);
-
-    outputMatrix(m);
+    if (isSquareMatrix(&m1))
+        printf("isGood");
 
     return 0;
 }

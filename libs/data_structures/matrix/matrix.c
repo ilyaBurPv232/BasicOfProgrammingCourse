@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
+#include <memory.h>
 
 void inputArray(int *const a, const size_t n) {
     for (size_t i = 0; i < n; i++) {
@@ -55,6 +56,7 @@ void outputMatrix(matrix m) {
     for (int i = 0; i < m.nRows; ++i) {
         outputArray(m.values[i], m.nCols);
     }
+    printf("\n");
 }
 
 void inputMatrices(matrix *ms, int nMatrices) {
@@ -144,4 +146,58 @@ void selectionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int)
 
         swapColumns(m, min_pos, i);
     }
+}
+
+bool isSquareMatrix(matrix *m) {
+    return m->nRows == m->nCols;
+}
+
+bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
+    if (m1->nRows != m2->nRows || m1->nCols != m2->nCols)
+        return false;
+    for (int i = 0; i < m1->nRows; ++i) {
+        if (memcmp(m1->values[i], m2->values[i], sizeof(int) * m2->nCols) != 0)
+            return false;
+    }
+    return true;
+}
+
+bool isEMatrix(matrix *m) {
+    if (!isSquareMatrix(m))
+
+        return false;
+    else {
+
+        for (int i = 0; i < m->nRows; ++i) {
+            for (int j = 0; j < m->nCols; ++j) {
+                if (i != j) {
+                    if (m->values[i][j] != 0)
+
+                        return false;
+
+                } else if (m->values[i][j] != 1)
+
+                    return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool isSymmetricMatrix(matrix *m) {
+    if (!isSquareMatrix(m))
+
+        return false;
+    else {
+        for (int i = 0; i < m->nRows; ++i) {
+            for (int j = 0; j < m->nCols; ++j) {
+                if (i != j && m->values[i][j] != m->values[j][i])
+
+                    return false;
+            }
+        }
+    }
+
+    return true;
 }
