@@ -51,6 +51,7 @@ void clearV(vectorVoid *v) {
 
 void deleteVectorV(vectorVoid *v) {
     free(v->data);
+    v->data = NULL;
     v->size = 0;
     v->capacity = 0;
     v->baseTypeSize = 0;
