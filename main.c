@@ -1,6 +1,7 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include <assert.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 void task1(matrix *m) {
     int min = getMinValuePos(*m).rowIndex;
@@ -221,13 +222,62 @@ void test_task6() {
     freeMemMatrix(&m_test);
 }
 
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    long long count = 0;
+    int max_num = 0;
+
+    for (int i = 1; i < m.nCols; ++i) {
+        int i_row = 0;
+        int i_col = i;
+        max_num = m.values[i_row][i_col];
+        while (i_col < m.nCols && i_row < m.nRows) {
+            max_num = max(max_num, m.values[i_row][i_col]);
+            i_row++;
+            i_col++;
+        }
+        count += max_num;
+    }
+
+    for (int i = 1; i < m.nRows; ++i) {
+        int i_row = i;
+        int i_col = 0;
+        max_num = m.values[i_row][i_col];
+        printf("\n");
+        while (i_col < m.nRows && i_row < m.nRows) {
+            max_num = max(max_num, m.values[i_row][i_col]);
+            i_row++;
+            i_col++;
+        }
+        count += max_num;
+    }
+    return count;
+}
+
+long long task7(matrix m){
+    findSumOfMaxesOfPseudoDiagonal(m);
+}
+
+void test_task7(){
+    matrix m = createMatrixFromArray((int[]) {3,2,5,4,
+                                              1,3,6,3,
+                                              3,2,1,2},
+                                     3, 4);
+    assert(findSumOfMaxesOfPseudoDiagonal(m) == 20);
+}
+
 void test() {
     //test_task1();
     //test_task2();
     //test_task3();
     //test_task4();
     //test_task5();
-    test_task6();
+    //test_task6();
+    test_task7();
+
 }
 
 int main() {
