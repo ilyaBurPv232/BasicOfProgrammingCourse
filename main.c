@@ -146,7 +146,7 @@ void test_task4() {
 bool isUnique(long long *a, int n) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            if (a[i] == a[j] && i != j)
+            if (a[i] == a[j] &&  i != j)
                 return false;
         }
     }
@@ -192,41 +192,12 @@ void test_task5() {
     freeMemMatrix(&m_test);
 }
 
-bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
-    if (m1.nCols != m2.nCols || m1.nRows != m2.nRows)
-        return false;
-    else {
-        matrix mul_m = mulMatrices(m1, m2);
-        return isEMatrix(&mul_m);
-
-    }
-
-
-}
-
-bool task6(matrix m1, matrix m2) {
-    isMutuallyInverseMatrices(m1, m2);
-}
-
-void test_task6() {
-    matrix m = createMatrixFromArray((int[]) {1, 1,
-                                              2, 1},
-                                     2, 2);
-
-    matrix m_test = createMatrixFromArray((int[]) {-1, 1,
-                                                   2, -1},
-                                          2, 2);
-
-    assert(task6(m, m_test));
-}
-
 void test() {
     //test_task1();
     //test_task2();
     //test_task3();
     //test_task4();
-    //test_task5();
-    test_task6();
+    test_task5();
 }
 
 int main() {
