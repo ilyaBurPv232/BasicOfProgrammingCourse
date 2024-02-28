@@ -89,8 +89,53 @@ void test_task3(){
                                                     5, 1, 2, 2, 7, 8,
                                                     1, 4, 6, 8, 3, 4},
                                            3, 6);
-    
+
     task3(&m);
+
+    assert(areTwoMatricesEqual(&m, &m_test));
+    freeMemMatrix(&m);
+    freeMemMatrix(&m_test);
+}
+
+matrix mulMatrices(matrix m1, matrix m2){
+    assert(m1.nRows * m1.nCols == m2.nRows * m2.nCols);
+    matrix result = getMemMatrix( m1.nRows,m2.nCols);
+
+    for (int i = 0; i < m1.nRows; i++) {
+        for (int j = 0; j < m2.nCols; j++) {
+            result.values[i][j] = 0;
+            for (int k = 0; k < m1.nCols; k++) {
+                result.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    }
+
+    return result;
+}
+
+void getSquareOfMatrixIfSymmetric(matrix *m){
+    assert(isSymmetricMatrix(m));
+    matrix temp = mulMatrices(*m,*m);
+    freeMemMatrix(m);
+    *m = temp;
+}
+
+void task4(matrix *m){
+    getSquareOfMatrixIfSymmetric(m);
+}
+
+void test_task4(){
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                              2, 4, 5,
+                                              3, 5, 6},
+                                     3, 3);
+
+    matrix m_test = createMatrixFromArray((int[]) {14, 25, 31,
+                                                   25, 45, 56,
+                                                   31, 56, 70},
+                                          3, 3);
+
+    task4(&m);
 
     assert(areTwoMatricesEqual(&m, &m_test));
     freeMemMatrix(&m);
@@ -100,7 +145,8 @@ void test_task3(){
 void test(){
     //test_task1();
     //test_task2();
-    test_task3();
+    //test_task3();
+    test_task4();
 }
 
 int main() {
