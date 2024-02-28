@@ -258,7 +258,7 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
 }
 
 long long task7(matrix m){
-    findSumOfMaxesOfPseudoDiagonal(m);
+    return findSumOfMaxesOfPseudoDiagonal(m);
 }
 
 void test_task7(){
@@ -266,7 +266,7 @@ void test_task7(){
                                               1,3,6,3,
                                               3,2,1,2},
                                      3, 4);
-    assert(findSumOfMaxesOfPseudoDiagonal(m) == 20);
+    assert(task7(m) == 20);
 }
 
 void test() {
