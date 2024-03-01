@@ -603,6 +603,49 @@ void test_task14() {
     freeMemMatrices(ms, 5);
 }
 
+void task15(matrix *ms, int nMatrix) {
+    int temp_mem[nMatrix];
+    int abs, max = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        for (int j = 0; j < ms->nRows; ++j)
+            for (int k = 0; k < ms->nCols; ++k) {
+                abs = ms[i].values[j][k] > 0 ? ms[i].values[j][k] :
+                      -1 * ms[i].values[j][k];
+                max = max > abs ? max : abs;
+            }
+
+        temp_mem[i] = max;
+        max = 0;
+    }
+
+    int min = temp_mem[0];
+    for (int i = 1; i < nMatrix; ++i)
+        min = min < temp_mem[i] ? min : temp_mem[i];
+
+    for (int i = 0; i < nMatrix; ++i)
+        if (temp_mem[i] == min)
+            outputMatrix(ms[i]);
+}
+
+void test_task15() {
+    matrix *ms = createArrayOfMatrixFromArray((int[]) {
+                                                      90, -1,
+                                                      1, 11,
+
+                                                      11, 66,
+                                                      -92, 22,
+
+                                                      5, 40,
+                                                      -70, 32,
+
+                                                      1, 3,
+                                                      7, 90},
+                                              4, 2, 2);
+
+    task15(ms, 4);
+    assert(42 == 42);
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -618,6 +661,7 @@ void test() {
     test_task12();
     test_task13();
     test_task14();
+    test_task15();
 }
 
 int main() {
