@@ -459,6 +459,37 @@ void test_task11() {
     freeMemMatrix(&m);
 }
 
+position getLeftMin(matrix m) {
+    return getMinValuePos(m);
+}
+
+void swapPenultimateRow(matrix *m, int n) {
+    assert(m->nRows == m->nCols);
+
+    for (int i = m->nRows - 1; i >= 0; --i)
+        m->values[m->nRows - 2][i] = m->values[i][n];
+}
+
+void task12(matrix *m, int n) {
+    swapPenultimateRow(m, n);
+}
+
+void test_task12() {
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                              4, 5, 6,
+                                              7, 8, 1},
+                                     3, 3);
+    task12(&m, getLeftMin(m).colIndex);
+
+    matrix m_test = createMatrixFromArray((int[]) {1, 2, 3,
+                                                   1, 4, 7,
+                                                   7, 8, 1},
+                                          3, 3);
+    assert(areTwoMatricesEqual(&m, &m_test));
+    freeMemMatrix(&m);
+    freeMemMatrix(&m_test);
+}
+
 void test() {
     //test_task1();
     //test_task2();
@@ -470,7 +501,8 @@ void test() {
     //test_task8();
     //test_task9();
     //test_task10();
-    test_task11();
+    //test_task11();
+    test_task12();
 
 
 }
