@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <math.h>
 
 void task1(matrix *m) {
     int min = getMinValuePos(*m).rowIndex;
@@ -202,11 +203,9 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
     }
 }
 
-
 bool task6(matrix m1, matrix m2) {
     return isMutuallyInverseMatrices(m1, m2);
 }
-
 
 void test_task6() {
     matrix m = createMatrixFromArray((int[]) {1, 2,
@@ -246,7 +245,6 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
         int i_row = i;
         int i_col = 0;
         max_num = m.values[i_row][i_col];
-        printf("\n");
         while (i_col < m.nRows && i_row < m.nRows) {
             max_num = max(max_num, m.values[i_row][i_col]);
             i_row++;
@@ -315,6 +313,66 @@ void test_task8() {
     freeMemMatrix(&test);
 }
 
+float getDistance(int *a, int n) {
+    float distance = 0;
+    for (int i = 0; i < n; ++i) {
+        distance += a[i] * a[i];
+    }
+    distance = sqrtf(distance);
+    return distance;
+}
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix *m,
+                                           float (*criteria)(int *, int)) {
+    float temp[m->nRows];
+    float mem_num;
+    for (int i = 0; i < m->nRows; ++i) {
+        float res = criteria(m->values[i], m->nCols);
+        temp[i] = res;
+    }
+
+    int min_idx;
+    for (int j = 0; j < m->nRows; ++j) {
+        min_idx = j;
+        for (int i = j + 1; i < m->nRows; ++i) {
+            if (temp[i] < temp[min_idx]) {
+                min_idx = i;
+            }
+        }
+        if (min_idx != j) {
+            mem_num = temp[j];
+            temp[j] = temp[min_idx];
+            temp[min_idx] = mem_num;
+
+            swapRows(m, j, min_idx);
+        }
+    }
+}
+
+void sortByDistances(matrix *m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+void task9(matrix *m) {
+    sortByDistances(m);
+}
+
+void test_task9() {
+    matrix m = createMatrixFromArray((int[]) {3, -20,
+                                              10, 10,
+                                              -1, -100},
+                                     3, 2);
+    matrix m_test = createMatrixFromArray((int[]) {10, 10,
+                                                   3, -20,
+                                                   -1, -100},
+                                          3, 2);
+    task9(&m);
+
+    assert(areTwoMatricesEqual(&m,&m_test));
+    freeMemMatrix(&m);
+    freeMemMatrix(&m_test);
+}
+
 void test() {
     //test_task1();
     //test_task2();
@@ -323,7 +381,8 @@ void test() {
     //test_task5();
     //test_task6();
     //test_task7();
-    test_task8();
+    //test_task8();
+    //test_task9();
 
 
 }
