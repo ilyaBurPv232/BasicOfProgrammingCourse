@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 void task1(matrix *m) {
     int min = getMinValuePos(*m).rowIndex;
@@ -368,9 +369,62 @@ void test_task9() {
                                           3, 2);
     task9(&m);
 
-    assert(areTwoMatricesEqual(&m,&m_test));
+    assert(areTwoMatricesEqual(&m, &m_test));
     freeMemMatrix(&m);
     freeMemMatrix(&m_test);
+}
+
+int cmp_long_long(const void *pa, const void *pb) {
+    if (*(long long int *) pa - *(long long int *) pb < 0)
+        return -1;
+
+    if (*(long long int *) pa - *(long long int *) pb > 0)
+        return 1;
+
+    return 0;
+}
+
+int countNUnique(long long *a, int n) {
+    int count = 0;
+    bool is_uniq = false;
+    for (int i = 0; i < n - 1; ++i) {
+        if (!is_uniq && a[i] == a[i + 1]) {
+            count += 1;
+            is_uniq = true;
+        } else
+            is_uniq = false;
+    }
+
+    return count;
+}
+
+
+
+int countEqClassesByRowsSum(matrix m) {
+    long long temp[m.nRows];
+    for (int i = 0; i < m.nRows; ++i) {
+        temp[i] = getSum(m.values[i], m.nCols);
+    }
+
+    qsort(temp, m.nRows, sizeof(long long int), cmp_long_long);
+
+    return countNUnique(temp, m.nRows);
+}
+
+int task10(matrix m) {
+    return countEqClassesByRowsSum(m);
+}
+
+void test_task10() {
+    matrix m = createMatrixFromArray((int[]) {7, 1,
+                                              2, 7,
+                                              5, 4,
+                                              4, 3,
+                                              1, 6,
+                                              8, 0},
+                                     6, 2);
+    assert(task10(m) == 3);
+    freeMemMatrix(&m);
 }
 
 void test() {
@@ -383,6 +437,7 @@ void test() {
     //test_task7();
     //test_task8();
     //test_task9();
+    test_task10();
 
 
 }
