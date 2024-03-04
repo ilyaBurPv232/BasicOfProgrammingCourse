@@ -727,9 +727,8 @@ double getCosine(int *a, int *b, int n) {
 
 int getVectorIndexWithMaxAngle(matrix m, int *b) {
     double angle_array[m.nRows];
-    for (int i = 0; i < m.nRows; ++i) {
+    for (int i = 0; i < m.nRows; ++i)
         angle_array[i] = getCosine(m.values[i], b, m.nCols);
-    }
 
     int res = 0;
     for (int i = 1; i < m.nRows; ++i)
@@ -744,13 +743,42 @@ int task17(matrix m, int *b) {
 }
 
 void test_task17() {
-    matrix m = createMatrixFromArray((int[]) {3, 654,
-                                              4, 4,
-                                              3, 1},
+    matrix m = createMatrixFromArray((int[]) {3, 3,
+                                              2, 2,
+                                              1, 1},
                                      3, 2);
     int vector_b[2] = {3, 4};
 
     assert(task17(m, vector_b) == 0);
+    freeMemMatrix(&m);
+}
+
+long long getScalarProductRowAndCol(matrix m, int i, int j) {
+    long long product = 0;
+    for (int g = 0; g < m.nRows; ++g)
+        product += m.values[i][g] * m.values[g][j];
+    return product;
+}
+
+long long getSpecialScalarProduct(matrix m){
+    int min_ind = getMinValuePos(m).colIndex;
+    int max_ind = getMaxValuePos(m).rowIndex;
+    long long res = getScalarProductRowAndCol(m,max_ind,min_ind);
+
+    return res;
+}
+
+long long task18(matrix m) {
+    return getSpecialScalarProduct(m);
+}
+
+void test_task18() {
+    matrix m = createMatrixFromArray((int[]) {3, 6, 5,
+                                              4, 4, 5,
+                                              3, 1, 5},
+                                     3, 3);
+    printf("%lld", task18(m));
+    assert(task18(m) == 47);
     freeMemMatrix(&m);
 }
 
@@ -771,6 +799,8 @@ void test() {
     test_task14();
     test_task15();
     test_task16();
+    test_task17();
+    test_task18();
 }
 
 int main() {
