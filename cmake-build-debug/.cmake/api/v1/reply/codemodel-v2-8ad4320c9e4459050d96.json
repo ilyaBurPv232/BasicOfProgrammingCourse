@@ -19,7 +19,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						2
+						2,
+						3
 					]
 				},
 				{
@@ -85,7 +86,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -107,8 +109,15 @@
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "str::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-str-Debug-a598eb5b52bf9225ae31.json",
+					"name" : "str",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "unikum::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-unikum-Debug-77d87b28a874010f83fc.json",
+					"jsonFile" : "target-unikum-Debug-dcbb7dd7d3c0d5c2fa65.json",
 					"name" : "unikum",
 					"projectIndex" : 0
 				}

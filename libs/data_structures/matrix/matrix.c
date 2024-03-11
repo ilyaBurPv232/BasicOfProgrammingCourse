@@ -29,7 +29,13 @@ matrix getMemMatrix(int nRows, int nCols) {
 
     for (int i = 0; i < nRows; i++)
         values[i] = (int *) malloc(sizeof(int) * nCols);
-    return (matrix) {values, nRows, nCols};
+
+    if (values != NULL)
+        return (matrix) {values, nRows, nCols};
+    else {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
 }
 
 matrix *getMemArrayOfMatrices(int nMatrices,
@@ -38,7 +44,13 @@ matrix *getMemArrayOfMatrices(int nMatrices,
 
     for (int i = 0; i < nMatrices; i++)
         ms[i] = getMemMatrix(nRows, nCols);
-    return ms;
+
+    if (ms != NULL)
+        return ms;
+    else {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
 }
 
 void freeMemMatrix(matrix *m) {

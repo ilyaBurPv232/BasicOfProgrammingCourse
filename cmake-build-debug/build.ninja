@@ -47,7 +47,7 @@ cmake_ninja_workdir = C$:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug/
 #############################################
 # Order-only phony target for unikum
 
-build cmake_object_order_depends_target_unikum: phony || cmake_object_order_depends_target_algorithms cmake_object_order_depends_target_data_structures
+build cmake_object_order_depends_target_unikum: phony || cmake_object_order_depends_target_algorithms cmake_object_order_depends_target_data_structures cmake_object_order_depends_target_str
 
 build CMakeFiles/unikum.dir/main.c.obj: C_COMPILER__unikum_unscanned_Debug C$:/Users/Burcevi/CLionProjects/unikum/main.c || cmake_object_order_depends_target_unikum
   DEP_FILE = CMakeFiles\unikum.dir\main.c.obj.d
@@ -63,15 +63,46 @@ build CMakeFiles/unikum.dir/main.c.obj: C_COMPILER__unikum_unscanned_Debug C$:/U
 #############################################
 # Link the executable unikum.exe
 
-build unikum.exe: C_EXECUTABLE_LINKER__unikum_Debug CMakeFiles/unikum.dir/main.c.obj | libs/data_structures/libdata_structures.a libs/algorithms/libalgorithms.a || libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a
+build unikum.exe: C_EXECUTABLE_LINKER__unikum_Debug CMakeFiles/unikum.dir/main.c.obj | libstr.a libs/data_structures/libdata_structures.a libs/algorithms/libalgorithms.a || libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a libstr.a
   FLAGS = -g
-  LINK_LIBRARIES = libs/data_structures/libdata_structures.a  libs/algorithms/libalgorithms.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = libstr.a  libs/data_structures/libdata_structures.a  libs/algorithms/libalgorithms.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\unikum.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_FILE = unikum.exe
   TARGET_IMPLIB = libunikum.dll.a
   TARGET_PDB = unikum.exe.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target str
+
+
+#############################################
+# Order-only phony target for str
+
+build cmake_object_order_depends_target_str: phony || CMakeFiles/str.dir
+
+build CMakeFiles/str.dir/string/string_.c.obj: C_COMPILER__str_unscanned_Debug C$:/Users/Burcevi/CLionProjects/unikum/string/string_.c || cmake_object_order_depends_target_str
+  DEP_FILE = CMakeFiles\str.dir\string\string_.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\str.dir
+  OBJECT_FILE_DIR = CMakeFiles\str.dir\string
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target str
+
+
+#############################################
+# Link the static library libstr.a
+
+build libstr.a: C_STATIC_LIBRARY_LINKER__str_Debug CMakeFiles/str.dir/string/string_.c.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles\str.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libstr.a
+  TARGET_PDB = str.a.dbg
 
 
 #############################################
@@ -289,6 +320,8 @@ build libalgorithms.a: phony libs/algorithms/libalgorithms.a
 
 build libdata_structures.a: phony libs/data_structures/libdata_structures.a
 
+build str: phony libstr.a
+
 build unikum: phony unikum.exe
 
 # =============================================================================
@@ -299,7 +332,7 @@ build unikum: phony unikum.exe
 #############################################
 # Folder: C:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug
 
-build all: phony unikum.exe libs/all
+build all: phony unikum.exe libstr.a libs/all
 
 # =============================================================================
 

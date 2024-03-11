@@ -34,13 +34,19 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 9,
+				"line" : 11,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 10,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 14,
 				"parent" : 0
 			}
 		]
@@ -73,10 +79,14 @@
 	[
 		{
 			"backtrace" : 2,
-			"id" : "data_structures::@396ab3a44f37844d7cdb"
+			"id" : "str::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 3,
+			"id" : "data_structures::@396ab3a44f37844d7cdb"
+		},
+		{
+			"backtrace" : 4,
 			"id" : "algorithms::@4f84be16bc75261b2db5"
 		}
 	],
@@ -95,11 +105,16 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "libs\\data_structures\\libdata_structures.a",
+				"fragment" : "libstr.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
+				"fragment" : "libs\\data_structures\\libdata_structures.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
 				"fragment" : "libs\\algorithms\\libalgorithms.a",
 				"role" : "libraries"
 			},

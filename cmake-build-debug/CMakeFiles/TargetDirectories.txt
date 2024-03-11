@@ -1,4 +1,5 @@
 C:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug/CMakeFiles/unikum.dir
+C:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug/CMakeFiles/str.dir
 C:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 C:/Users/Burcevi/CLionProjects/unikum/cmake-build-debug/libs/CMakeFiles/edit_cache.dir
