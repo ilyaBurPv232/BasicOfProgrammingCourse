@@ -1,5 +1,6 @@
 #include "string/string_.h"
 #include <assert.h>
+#include <string.h>
 
 void test_strlen_() {
     char *str = "1234567890";
@@ -21,7 +22,7 @@ void test_find() {
 
 }
 
-void test_findNonSpace(){
+void test_findNonSpace() {
     char *str = " 5234567890";
     char *str1 = "\t     \th23";
     char *str2 = "123 123\t";
@@ -35,7 +36,7 @@ void test_findNonSpace(){
 
 }
 
-void test_findSpace(){
+void test_findSpace() {
     char *str = "523456789";
     char *str1 = "\taaaa\th23";
     char *str2 = "123 123\t";
@@ -47,7 +48,7 @@ void test_findSpace(){
     assert(findSpace(str3) == &str3[0]);
 }
 
-void test_findNonSpaceReverse(){
+void test_findNonSpaceReverse() {
     char *str = " 5234567890";
     char *str1 = "\t     \th23";
     char *str2 = "123 123\t";
@@ -59,7 +60,7 @@ void test_findNonSpaceReverse(){
     assert(*findNonSpaceReverse(&str3[2], &str3[0]) == '\0');
 }
 
-void test_findSpaceReverse(){
+void test_findSpaceReverse() {
     char *str = "523456789";
     char *str1 = "\taaaa\th23";
     char *str2 = "123 123\t";
@@ -71,8 +72,39 @@ void test_findSpaceReverse(){
     assert(findSpaceReverse(&str3[2], &str3[0]) == &str3[2]);
 }
 
+void test_copy() {
+    char *str = "a2b45678c";
+    char *str_copied[9];
+
+    copy(&str[0], &str[9], (char *) str_copied);
+
+    assert(!strcmp(str, (const char *) str_copied));
+
+}
+
+void test_copyIf(){
+    char *str = "a2b45678c";
+    char *str_copied[9];
+    char *test = "abc";
+
+    copyIf(&str[0], &str[9], (char *) str_copied, isalpha);
+
+    assert(!strcmp(test, ( char *) str_copied));
+}
+
+void test_copyIfReverse(){
+    char *str = "a2b45678c";
+    char *str_copied[9];
+    char *test = "cba";
+
+    copyIfReverse(&str[8], &str[0], (char *) str_copied, isalpha);
+
+    assert(!strcmp(test, str_copied));
+}
+
 void test() {
 
+    //find тесты
     test_strlen_();
     test_find();
     test_findNonSpace();
@@ -80,13 +112,19 @@ void test() {
     test_findNonSpaceReverse();
     test_findSpaceReverse();
 
+    //copy тесты
+    test_copy();
+    test_copyIf();
+    test_copyIfReverse();
+
+
+    printf("\nfeels good man!\n");
+
 }
 
 int main() {
 
     test();
-
-    printf("\nfeels good man!\n");
 
     return 0;
 }
