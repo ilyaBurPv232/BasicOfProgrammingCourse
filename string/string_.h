@@ -57,4 +57,14 @@ char* copyIf(char *beginSource, const char *endSource,
 char* copyIfReverse(char *rbeginSource, const char *rendSource,
                     char *beginDestination, int (*f)(int));
 
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line);
+
+// Сокращает количество пробелов между словами данного предложения до одного
+void removeExtraSpaces(char *s);
+
+//удаляет повторяющиеся символы
+void removeAdjacentEqualLetters(char *s);
+
 #endif

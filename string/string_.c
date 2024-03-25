@@ -1,4 +1,6 @@
 #include <memory.h>
+#include <string.h>
+#include <stdbool.h>
 #include "string_.h"
 
 
@@ -43,7 +45,7 @@ char *findSpaceReverse(char *rbegin, const char *rend) {
     return rbegin;
 }
 
-char* copy(const char *beginSource, const char *endSource, char
+char *copy(const char *beginSource, const char *endSource, char
 *beginDestination) {
     size_t size = endSource - beginSource;
     memcpy(beginDestination, beginSource, size);
@@ -53,7 +55,7 @@ char* copy(const char *beginSource, const char *endSource, char
     return beginDestination + size;
 }
 
-char* copyIf(char *beginSource, const char *endSource, char
+char *copyIf(char *beginSource, const char *endSource, char
 *beginDestination, int (*f)(int)) {
     while (beginSource != endSource) {
         if (f(*beginSource)) {
@@ -68,7 +70,7 @@ char* copyIf(char *beginSource, const char *endSource, char
     return beginDestination;
 }
 
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char
+char *copyIfReverse(char *rbeginSource, const char *rendSource, char
 *beginDestination, int (*f)(int)) {
     char *rbeginDest = beginDestination;
     while (rbeginSource >= rendSource) {
@@ -82,4 +84,45 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char
     *rbeginDest = '\0';
 
     return rbeginDest;
+}
+
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line) {
+    if (strcmp(expected, got)) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%s\"\n", expected);
+        fprintf(stderr, "Got: \"%s\"\n\n", got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
+}
+
+
+void removeExtraSpaces(char *s) {
+    int i, j;
+
+    for (i = 0, j = 0; s[i]; i++) {
+        if (s[i] != ' ' || (i > 0 && s[i - 1] != ' ')) {
+            s[j++] = s[i];
+        }
+    }
+
+    s[j] = '\0';
+}
+
+
+void removeAdjacentEqualLetters(char *s) {
+    if ((s == NULL || strlen(s) == 0))
+        return;
+
+    int i, j;
+
+    for (i = 0, j = 0; s[i] != '\0'; i++) {
+        if (s[i] != s[i + 1]) {
+            s[j] = s[i];
+            j++;
+        }
+    }
+    s[j] = '\0';
 }
