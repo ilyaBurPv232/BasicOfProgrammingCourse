@@ -78,6 +78,37 @@ void test_removeAdjacentEqualLetters() {
 
 }
 
+
+void test_digitsToStart1() {
+    char str[] = "1bo58ob9a 223924 faadba";
+    char exp[] = "1589booba 223924 faadba";
+    digitsToStart(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_digitsToStart2() {
+    char str[] = "";
+    char exp[] = "";
+    digitsToStart(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_digitsToStart3() {
+    char str[] = "123abc abc123 1a2b3c";
+    char exp[] = "123abc 123abc 123abc";
+    digitsToStart(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_digitsToStart() {
+    test_digitsToStart1();
+    test_digitsToStart2();
+    test_digitsToStart3();
+}
+
 void test_removeExtraSpaces() {
     test_removeExtraSpaces1();
     test_removeExtraSpaces2();
@@ -87,14 +118,16 @@ void test_removeExtraSpaces() {
 }
 
 void test() {
-
     test_removeExtraSpaces();
+    test_removeAdjacentEqualLetters();
+    test_digitsToStart();
 
 }
 
 int main() {
 
     test();
+    getchar();
 
     return 0;
 }

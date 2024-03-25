@@ -1,8 +1,20 @@
 #ifndef UNIKUM_STRING__H
 #define UNIKUM_STRING__H
 
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
+#define ALPHABET_SIZE 26
+
+
+
 #include <stdio.h>
 #include <ctype.h>
+
+typedef struct WordDescriptor {
+    char *begin; // позиция начала слова
+    char *end; // позиция первого символа, после последнего символа слова
+} WordDescriptor;
 
 
 //возвращает длину строки
@@ -66,5 +78,29 @@ void removeExtraSpaces(char *s);
 
 //удаляет повторяющиеся символы
 void removeAdjacentEqualLetters(char *s);
+
+//Функция getWord вернёт значение 0, если слово не было считано, в противном
+//случае будет возвращено значение 1 и в переменную word типа WordDescriptor
+//будут записаны позиции начала слова, и первого символа после конца слова:
+int getWord(char *beginSearch, WordDescriptor *word);
+
+//Возвращает указатель на конец строки
+char *getEndOfString(char *begin);
+
+//Удаляет все пробельные символы
+void removeNonLetters(char *s);
+
+//преобразовать строку таким образом,
+//чтобы цифры каждого слова были перенесены в начало слова и изменить
+//порядок следования цифр в слове на обратный.
+void reversedDigitToStart(WordDescriptor word);
+
+void digitToStart(WordDescriptor word);
+
+
+//Преобразовать строку таким образом, чтобы цифры каждого слова были
+//перенесены в начало слова без изменения порядка следования их в слове,
+//буквы перенести в конец слова.
+void digitsToStart(char *s);
 
 #endif
