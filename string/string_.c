@@ -1,5 +1,6 @@
 #include <memory.h>
 #include <string.h>
+#include <stdlib.h>
 #include "string_.h"
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
@@ -179,4 +180,48 @@ void digitsToStart(char *s) {
         digitToStart(word);
         beginSearch = word.end;
     }
+}
+
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
+    word->end = findNonSpaceReverse(rbegin, rend);
+    if (*word->begin == *rend)
+        return 0;
+
+    word->begin = findSpaceReverse(word->end, rend);
+    word->begin++;
+
+    return 1;
+}
+
+void replaceDigitsToNumOfSpaces(char *s) {
+
+    copy(s, getEndOfString(s), _stringBuffer);
+
+    char *recPtr = s;
+
+    char *readPtr = _stringBuffer;
+
+    for (int i = 0; i < strlen_(_stringBuffer); ++i) {
+        if (strlen_(s) >= MAX_STRING_SIZE) {
+            fprintf(stderr, "Out of MAX_STRING_SIZE");
+            exit(1);
+        }
+
+        if (!isdigit(_stringBuffer[i])) {
+            *recPtr = *readPtr;
+            recPtr++;
+            readPtr++;
+
+        } else {
+            int counter = _stringBuffer[i] - '0';
+            for (int j = counter; j > 0; --j) {
+                *recPtr = ' ';
+                recPtr++;
+            }
+            readPtr++;
+        }
+    }
+    _stringBuffer[0] = '\0';
+    *recPtr = '\0';
+
 }

@@ -7,9 +7,10 @@
 #define ALPHABET_SIZE 26
 
 
-
 #include <stdio.h>
 #include <ctype.h>
+
+
 
 typedef struct WordDescriptor {
     char *begin; // позиция начала слова
@@ -102,5 +103,9 @@ void digitToStart(WordDescriptor word);
 //перенесены в начало слова без изменения порядка следования их в слове,
 //буквы перенести в конец слова.
 void digitsToStart(char *s);
+
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+
+void replaceDigitsToNumOfSpaces(char *s);
 
 #endif

@@ -1,5 +1,6 @@
 #include "string/string_.h"
 #include <stdio.h>
+#include <malloc.h>
 
 
 #define ASSERT_STRING(expected, got) assertString(expected, got, \
@@ -69,16 +70,6 @@ void test_removeAdjacentEqualLetters4() {
     ASSERT_STRING(exp, str);
 }
 
-
-void test_removeAdjacentEqualLetters() {
-    test_removeAdjacentEqualLetters1();
-    test_removeAdjacentEqualLetters2();
-    test_removeAdjacentEqualLetters3();
-    test_removeAdjacentEqualLetters4();
-
-}
-
-
 void test_digitsToStart1() {
     char str[] = "1bo58ob9a 223924 faadba";
     char exp[] = "1589booba 223924 faadba";
@@ -103,6 +94,45 @@ void test_digitsToStart3() {
     ASSERT_STRING(exp, str);
 }
 
+void test_replaceDigitsToNumOfSpaces1() {
+    char str[MAX_STRING_SIZE] = "p3a1s lol";
+    char exp[] = "p   a s lol";
+    replaceDigitsToNumOfSpaces(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replaceDigitsToNumOfSpaces2() {
+    char str[MAX_STRING_SIZE] = "p3a1s 101";
+    char exp[] = "p   a s   ";
+    replaceDigitsToNumOfSpaces(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replaceDigitsToNumOfSpaces3() {
+    char str[MAX_STRING_SIZE] = "";
+    char exp[] = "";
+    replaceDigitsToNumOfSpaces(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+
+void test_replaceDigitsToNumOfSpaces(){
+    test_replaceDigitsToNumOfSpaces1();
+    test_replaceDigitsToNumOfSpaces2();
+    test_replaceDigitsToNumOfSpaces3();
+}
+
+void test_removeAdjacentEqualLetters() {
+    test_removeAdjacentEqualLetters1();
+    test_removeAdjacentEqualLetters2();
+    test_removeAdjacentEqualLetters3();
+    test_removeAdjacentEqualLetters4();
+
+}
+
 void test_digitsToStart() {
     test_digitsToStart1();
     test_digitsToStart2();
@@ -121,13 +151,16 @@ void test() {
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
     test_digitsToStart();
+    test_replaceDigitsToNumOfSpaces();
 
 }
 
 int main() {
 
     test();
-    getchar();
+
+
+
 
     return 0;
 }
