@@ -225,3 +225,38 @@ void replaceDigitsToNumOfSpaces(char *s) {
     *recPtr = '\0';
 
 }
+
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+    char *readPtr, *recPtr;
+
+    if (w1Size >= w2Size) {
+        readPtr = source;
+        recPtr = source;
+    } else {
+        copy(source, getEndOfString(source), _stringBuffer);
+        readPtr = _stringBuffer;
+        recPtr = source;
+    }
+
+    while (*readPtr != '\0') {
+        if (memcmp(readPtr, w1, w1Size) == 0) {
+            for (int i = 0; i < w2Size; ++i) {
+                *recPtr = w2[i];
+                recPtr++;
+            }
+
+            readPtr += w1Size;
+
+        } else {
+            *recPtr = *readPtr;
+            readPtr++;
+            recPtr++;
+        }
+    }
+
+    *recPtr = '\0';
+}

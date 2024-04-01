@@ -118,6 +118,36 @@ void test_replaceDigitsToNumOfSpaces3() {
     ASSERT_STRING(exp, str);
 }
 
+void test_replace1() {
+    char str[MAX_STRING_SIZE] = "aboba i love my mom aboba";
+    char w1[] = "aboba";
+    char w2[] = "goddamn";
+    replace(str, w1, w2);
+    char exp[MAX_STRING_SIZE] = "goddamn i love my mom goddamn";
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replace2() {
+    char str[MAX_STRING_SIZE] = "i love aboba, my mom is baking aboba";
+    char w1[] = "aboba";
+    char w2[] = "cake";
+    replace(str, w1, w2);
+    char exp[MAX_STRING_SIZE] = "i love cake, my mom is baking cake";
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replace3() {
+    char str[MAX_STRING_SIZE] = "where is my mom mom dad";
+    char w1[] = "mom";
+    char w2[] = "";
+    replace(str, w1, w2);
+    char exp[MAX_STRING_SIZE] = "where is my   dad";
+
+    ASSERT_STRING(exp, str);
+}
+
 
 void test_replaceDigitsToNumOfSpaces(){
     test_replaceDigitsToNumOfSpaces1();
@@ -147,11 +177,19 @@ void test_removeExtraSpaces() {
 
 }
 
+void test_replace(){
+    test_replace1();
+    test_replace2();
+    test_replace3();
+}
+
 void test() {
+
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
     test_digitsToStart();
     test_replaceDigitsToNumOfSpaces();
+    test_replace();
 
 }
 

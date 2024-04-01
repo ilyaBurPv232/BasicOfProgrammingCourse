@@ -108,4 +108,6 @@ int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 
 void replaceDigitsToNumOfSpaces(char *s);
 
+void replace(char *source, char *w1, char *w2);
+
 #endif
