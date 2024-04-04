@@ -272,6 +272,33 @@ void test_getWordBeforeFirstWordWithA() {
     assert(getWordBeforeFirstWordWithA(s4, &word) == NOT_FOUND_A_WORD_WITH_A);
 }
 
+void test_lastWordInFirstStringInSecondString1() {
+    char s1_1[] = "Hi ha he";
+    char s2_1[] = "Hi he";
+    WordDescriptor word1 = lastWordInFirstStringInSecondString(s1_1, s2_1);
+    char str1[MAX_WORD_SIZE];
+
+    wordDescriptorToString(word1, str1);
+
+    ASSERT_STRING("he", str1);
+}
+
+void test_lastWordInFirstStringInSecondString2() {
+    char s1_2[] = "Hi ha he";
+    char s2_2[] = "Hi ha";
+    WordDescriptor word2 = lastWordInFirstStringInSecondString(s1_2, s2_2);
+    char str2[MAX_WORD_SIZE];
+
+    wordDescriptorToString(word2, str2);
+
+    ASSERT_STRING("ha", str2);
+}
+
+void test_lastWordInFirstStringInSecondString() {
+    test_lastWordInFirstStringInSecondString1();
+    test_lastWordInFirstStringInSecondString2();
+}
+
 void test_mergeString() {
     test_mergeString1();
     test_mergeString2();
@@ -347,6 +374,7 @@ void test() {
     test_mergeString();
     test_reverseWords();
     test_getWordBeforeFirstWordWithA();
+    test_lastWordInFirstStringInSecondString();
 
 }
 
