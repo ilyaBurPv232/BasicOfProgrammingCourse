@@ -31,6 +31,7 @@ char *strtok_(char *str, const char *delim);
 
 char *strcat_(char *dest, const char *src);
 
+void strcpy_(char *dest, const char *src);
 
 
 //возвращает указатель
@@ -152,5 +153,9 @@ size_t howManyWordsPalindromes(char *s);
 //с помощью функции strtok_ и объединяя слова
 //в результирующую строку result
 void mergeStrings(char *s1, char *s2, char *result);
+
+//Преобразовывает строку, изменяя порядок следования слов в строке на обратный.
+void reverseWords(char *str);
+
 
 #endif

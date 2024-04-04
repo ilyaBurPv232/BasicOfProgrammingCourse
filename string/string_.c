@@ -75,6 +75,16 @@ char *strcat_(char *dest, const char *src) {
     return dest;
 }
 
+void strcpy_(char *dest, const char *src) {
+    while (*src) {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+
+    *dest = '\0';
+}
+
 
 char *find(char *begin, char *end, int ch) {
     while (begin != end && *begin != ch)
@@ -444,3 +454,53 @@ void mergeStrings(char *s1, char *s2, char *result) {
         }
     }
 }
+
+void reverseWords(char *str) {
+    int i = 0;
+    _bag.size = 0;
+    WordDescriptor word;
+
+    while (*str && _bag.size < 1) {
+        if (*str != ' ' && *(str + 1) == ' ' || *(str + 1) == '\0') {
+            word.begin = str - i;
+            word.end = str + 1;
+            _bag.words[_bag.size] = word;
+            _bag.size++;
+            i = -1;
+        }
+
+        str++;
+        i++;
+    }
+
+    while (*str) {
+        if (*str != ' ' && *(str + 1) == ' ' || *(str + 1) == '\0') {
+            word.begin = str - i + 1;
+            word.end = str + 1;
+            _bag.words[_bag.size] = word;
+            _bag.size++;
+            i = -1;
+        }
+        str++;
+        i++;
+    }
+
+    char *reversedStr = malloc(strlen_(str) + 1);
+    char *p = reversedStr;
+
+    for (int j = _bag.size - 1; j >= 0; j--) {
+        for (char *p = _bag.words[j].begin; p < _bag.words[j].end; p++) {
+            *reversedStr = *p;
+            reversedStr++;
+        }
+        *reversedStr = ' ';
+        reversedStr++;
+    }
+
+    *reversedStr = '\0';
+
+    strcpy_(str, p);
+
+    free(p);
+}
+

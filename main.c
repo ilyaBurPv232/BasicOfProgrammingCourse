@@ -245,6 +245,18 @@ void test_mergeString2() {
     ASSERT_STRING("Thank Hello how are you ", result);
 }
 
+void test_reverseWords() {
+    char p[MAX_STRING_SIZE] = "Hello world! This is a test.";
+    reverseWords(p);
+
+    ASSERT_STRING(".test a is This !world Hello", p);
+
+    char c[MAX_STRING_SIZE] = ".test a is This !world Hello";
+    reverseWords(c);
+
+    ASSERT_STRING("Hello world! This is a test.", c);
+}
+
 void test_mergeString() {
     test_mergeString1();
     test_mergeString2();
@@ -318,6 +330,7 @@ void test() {
     test_reverseWordsBag();
     test_howManyWordsPalindromes();
     test_mergeString();
+    test_reverseWords();
 
 }
 
