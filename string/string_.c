@@ -809,3 +809,55 @@ void removePalindromes(char *str) {
 
     strcpy_(str, result);
 }
+
+void append(char *s1, char *s2) {
+    BagOfWords bag1 = createBagOfWordsFromString(s1);
+    BagOfWords bag2 = createBagOfWordsFromString(s2);
+    if (bag1.size < bag2.size) {
+        if (bag1.size == 1)
+            bag1.size++;
+        else
+            bag1.size--;
+
+        if (bag2.size == 2)
+            bag2.size++;
+
+        char *p = bag2.words[bag2.size - bag1.size].begin;
+        char *q = s1;
+        while (*q != '\0')
+            q++;
+
+        *q = ' ';
+        q++;
+        while (*p != '\0') {
+            *q = *p;
+            q++;
+            p++;
+        }
+        *q = '\0';
+
+    } else if (bag1.size > bag2.size) {
+        if (bag2.size == 1)
+            bag2.size++;
+        else
+            bag2.size--;
+
+        if (bag1.size == 2)
+            bag1.size++;
+
+        char *p = bag1.words[bag1.size - bag2.size].begin;
+        char *q = s2;
+        while (*q != '\0')
+            q++;
+
+        *q = ' ';
+        q++;
+        while (*p != '\0') {
+            *q = *p;
+            q++;
+            p++;
+        }
+
+        *q = '\0';
+    }
+}

@@ -367,6 +367,36 @@ void test_remove_palindromes2() {
     ASSERT_STRING("mama hi amam ", str2);
 }
 
+void test_for_append1() {
+    char s1[MAX_STRING_SIZE] = "Hello";
+    char s2[MAX_STRING_SIZE] = "word the world";
+    append(s1, s2);
+
+    ASSERT_STRING("Hello the world", s1);
+}
+
+void test_for_append2() {
+    char s1[MAX_STRING_SIZE] = "the world";
+    char s2[MAX_STRING_SIZE] = "Hello";
+    append(s1, s2);
+
+    ASSERT_STRING("Hello world", s2);
+}
+
+void test_for_append3() {
+    char s1[MAX_STRING_SIZE] = "bim bim";
+    char s2[MAX_STRING_SIZE] = "bam bam";
+    append(s1, s2);
+
+    ASSERT_STRING("bam bam", s2);
+}
+
+void test_append() {
+    test_for_append1();
+    test_for_append2();
+    test_for_append3();
+}
+
 void test_remove_palindromes() {
     test_remove_palindromes1();
     test_remove_palindromes2();
@@ -474,6 +504,7 @@ void test() {
     test_getWordsExceptLast();
     test_findWordBeforeFirstOccurrence();
     test_remove_palindromes();
+    test_append();
 
 }
 
