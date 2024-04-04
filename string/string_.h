@@ -133,4 +133,11 @@ char *copyReverse(char *rbeginSource, const char *rendSource, char
 // и объединяет их в одну строку
 void reverseWordsBag(char *s);
 
+
+// Проверяет, является ли заданное слово палиндромом.
+bool isWordPalindrome(char *begin, char *end);
+
+// Подсчитывает количество палиндромов в строке, разделенной запятыми.
+size_t howManyWordsPalindromes(char *s);
+
 #endif

@@ -195,6 +195,44 @@ void test_reverseWordsBag3() {
     ASSERT_STRING("", s);
 }
 
+void test_howManyWordsPalindromes1() {
+    char s[] = "";
+
+    assert(howManyWordsPalindromes(s) == 0);
+}
+
+void test_howManyWordsPalindromes2() {
+    char s[] = "heh";
+
+    assert(howManyWordsPalindromes(s) == 1);
+}
+
+void test_howManyWordsPalindromes3() {
+    char s[] = "heh,heyeh";
+
+    assert(howManyWordsPalindromes(s) == 2);
+}
+
+void test_howManyWordsPalindromes4() {
+    char s[] = "heh,hi";
+
+    assert(howManyWordsPalindromes(s) == 1);
+}
+
+void test_howManyWordsPalindromes5() {
+    char s[] = "a";
+
+    assert(howManyWordsPalindromes(s) == 1);
+}
+
+void test_howManyWordsPalindromes() {
+    test_howManyWordsPalindromes1();
+    test_howManyWordsPalindromes2();
+    test_howManyWordsPalindromes3();
+    test_howManyWordsPalindromes4();
+    test_howManyWordsPalindromes5();
+}
+
 void test_reverseWordsBag() {
     test_reverseWordsBag1();
     test_reverseWordsBag2();
@@ -253,6 +291,7 @@ void test() {
     test_replace();
     test_areWordsOrdered();
     test_reverseWordsBag();
+    test_howManyWordsPalindromes();
 
 }
 
