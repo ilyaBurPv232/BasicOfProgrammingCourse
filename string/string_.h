@@ -200,4 +200,9 @@ int findPairWithSameLetters(BagOfWords *bag);
 // Функция для получения строки из слов, которые отличны от последнего слова
 char *getWordsExceptLast(char *str);
 
+//Находит слово, предшествующее первому вхождению 𝑤 в 𝑠1
+char *findWordBeforeFirstOccurrence(char *s1, char *s2);
+
+
+
 #endif

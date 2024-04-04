@@ -736,3 +736,49 @@ char *getWordsExceptLast(char *str) {
 
     return str;
 }
+
+char *findWordBeforeFirstOccurrence(char *s1, char *s2) {
+    BagOfWords bag;
+    bag.size = 0;
+
+    char *delimiters = " ,.?!;:"; // пример разделителей
+    char *token = strtok_(s1, delimiters);
+    while (token != NULL) {
+        WordDescriptor word;
+        word.begin = token;
+        word.end = token + strlen_(token);
+        bag.words[bag.size++] = word;
+        token = strtok_(NULL, delimiters);
+    }
+
+    char *w = NULL;
+    token = strtok_(s2, delimiters);
+    while (token != NULL) {
+        for (size_t i = 0; i < bag.size; i++) {
+            if (strcmp(bag.words[i].begin, token) == 0) {
+                w = token;
+                break;
+            }
+        }
+        if (w != NULL) {
+            break;
+        }
+        token = strtok_(NULL, delimiters);
+    }
+
+    if (w == NULL) {
+        return "0";
+    }
+
+    for (size_t i = 0; i < bag.size; i++) {
+        if (strcmp(bag.words[i].begin, w) == 0) {
+            if (i > 0) {
+                return bag.words[i - 1].begin;
+            } else {
+                return "0";
+            }
+        }
+    }
+
+    return "0";
+}

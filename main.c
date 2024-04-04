@@ -330,6 +330,36 @@ void test_getWordsExceptLast2() {
     ASSERT_STRING(modified_str2, "hihi");
 }
 
+void test_for_findWordBeforeFirstOccurrence1() {
+    char s1[] = "Python is awsome!";
+    char s2[] = "C is good too";
+
+    char *wordBeforeW = findWordBeforeFirstOccurrence(s1, s2);
+    ASSERT_STRING("Python", wordBeforeW);
+}
+
+void test_for_findWordBeforeFirstOccurrence2() {
+    char s1[] = "No common words";
+    char s2[] = "Different strings";
+
+    char *wordBeforeW = findWordBeforeFirstOccurrence(s1, s2);
+    ASSERT_STRING("0", wordBeforeW);
+}
+
+void test_for_findWordBeforeFirstOccurrence3() {
+    char s1[] = "no words before w";
+    char s2[] = "hehe no";
+
+    char *wordsBeforeW = findWordBeforeFirstOccurrence(s1, s2);
+    ASSERT_STRING("0", wordsBeforeW);
+}
+
+void test_findWordBeforeFirstOccurrence() {
+    test_for_findWordBeforeFirstOccurrence1();
+    test_for_findWordBeforeFirstOccurrence2();
+    test_for_findWordBeforeFirstOccurrence3();
+}
+
 void test_getWordsExceptLast() {
     test_getWordsExceptLast1();
     test_getWordsExceptLast2();
@@ -424,6 +454,7 @@ void test() {
     test_hasDuplicateWords();
     test_FindPairWithSameLetters();
     test_getWordsExceptLast();
+    test_findWordBeforeFirstOccurrence();
 
 }
 
