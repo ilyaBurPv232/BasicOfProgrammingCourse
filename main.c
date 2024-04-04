@@ -316,6 +316,25 @@ void test_FindPairWithSameLetters2() {
     assert(findPairWithSameLetters(&bag2) == 0);
 }
 
+void test_getWordsExceptLast1() {
+    char str1[] = "Hello world this is a test";
+    char *modified_str1 = getWordsExceptLast(str1);
+
+    ASSERT_STRING(modified_str1, "Hello world this is a");
+}
+
+void test_getWordsExceptLast2() {
+    char str2[] = "hihi haha";
+    char *modified_str2 = getWordsExceptLast(str2);
+
+    ASSERT_STRING(modified_str2, "hihi");
+}
+
+void test_getWordsExceptLast() {
+    test_getWordsExceptLast1();
+    test_getWordsExceptLast2();
+}
+
 void test_FindPairWithSameLetters() {
     test_FindPairWithSameLetters1();
     test_FindPairWithSameLetters2();
@@ -404,6 +423,7 @@ void test() {
     test_lastWordInFirstStringInSecondString();
     test_hasDuplicateWords();
     test_FindPairWithSameLetters();
+    test_getWordsExceptLast();
 
 }
 

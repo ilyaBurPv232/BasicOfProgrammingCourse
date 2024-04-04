@@ -44,6 +44,8 @@ char *strncpy_(char *destination, const char *source, size_t num);
 
 int strncmp_(const char *s1, const char *s2, size_t n);
 
+char *strrchr_(const char *str, int c);
+
 //возвращает указатель
 //на первый элемент с кодом ch, расположенным на ленте памяти между
 //адресами begin и end не включая end.
@@ -194,5 +196,8 @@ void parseString(char *str, BagOfWords *bag);
 // Определяет, есть ли в данной строке пара слов, составленных
 // из одинакового набора букв.
 int findPairWithSameLetters(BagOfWords *bag);
+
+// Функция для получения строки из слов, которые отличны от последнего слова
+char *getWordsExceptLast(char *str);
 
 #endif
