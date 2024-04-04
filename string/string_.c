@@ -478,7 +478,6 @@ size_t howManyWordsPalindromes(char *s) {
 }
 
 
-
 void mergeStrings(char *s1, char *s2, char *result) {
     char *word1 = strtok_(s1, " ");
     char *word2 = strtok_(s2, " ");
@@ -860,4 +859,30 @@ void append(char *s1, char *s2) {
 
         *q = '\0';
     }
+}
+
+bool checkWordInString(const char *word, const char *str) {
+    bool letters[ALPHABET_SIZE] = {false};
+
+    for (; *str; ++str) {
+        if (*str >= 'a' && *str <= 'z') {
+            letters[*str - 'a'] = true;
+        } else if (*str >= 'A' && *str <= 'Z') {
+            letters[*str - 'A'] = true;
+        }
+    }
+
+    for (; *word; ++word) {
+        if (*word >= 'a' && *word <= 'z') {
+            if (!letters[*word - 'a']) {
+                return false;
+            }   
+        } else if (*word >= 'A' && *word <= 'Z') {
+            if (!letters[*word - 'A']) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

@@ -59,24 +59,24 @@ char *findNonSpace(char *begin);
 // возвращает указатель на первый пробельный символ,
 // расположенный на ленте памяти начиная с адреса begin
 // или на первый ноль-символ.
-char* findSpace(char *begin);
+char *findSpace(char *begin);
 
 //Возвращает указатель на первый справа символ, отличный от пробельных,
 //расположенный на ленте памяти, начиная с rbegin (последний символ
 //строки, за которым следует ноль-символ) и заканчивая rend
 //(адрес символа перед началом строки). Если символ не найден, возвращается адрес rend.
-char* findNonSpaceReverse(char *rbegin, const char *rend);
+char *findNonSpaceReverse(char *rbegin, const char *rend);
 
 //Возвращает указатель на первый пробельный символ справа, расположенный на ленте
 //памяти, начиная с rbegin и заканчивая rend. Если символ не найден,
 //возвращается адрес rend.
-char* findSpaceReverse(char *rbegin, const char *rend);
+char *findSpaceReverse(char *rbegin, const char *rend);
 
 //записывает по адресу beginDestination
 //фрагмент памяти, начиная с адреса beginSource до endSource
 //возвращает указатель на следующий свободный фрагмент памяти в
 //destination:
-char* copy(const char *beginSource, const char *endSource,
+char *copy(const char *beginSource, const char *endSource,
            char *beginDestination);
 
 //Записывает по адресу
@@ -84,7 +84,7 @@ char* copy(const char *beginSource, const char *endSource,
 //заканчивая endSource, удовлетворяющие функции-предикату f. Функция
 //возвращает указатель на следующий свободный для записи фрагмент в
 //памяти.
-char* copyIf(char *beginSource, const char *endSource,
+char *copyIf(char *beginSource, const char *endSource,
              char *beginDestination, int (*f)(int));
 
 //Записывает по адресу
@@ -92,7 +92,7 @@ char* copyIf(char *beginSource, const char *endSource,
 //заканчивая rendSource, удовлетворяющие функции-предикату f.
 // Функция возвращает значение beginDestination по окончанию работы
 //функции.
-char* copyIfReverse(char *rbeginSource, const char *rendSource,
+char *copyIfReverse(char *rbeginSource, const char *rendSource,
                     char *beginDestination, int (*f)(int));
 
 void assertString(const char *expected, char *got,
@@ -212,6 +212,9 @@ void removePalindromes(char *str);
 // Функция, которая дополняет строку, содержащую меньшее количество слов, последними
 // словами строки, в которой содержится большее количество слов
 void append(char *s1, char *s2);
+
+// Функция для проверки вхождения букв из заданного слова в строку
+bool checkWordInString(const char *word, const char *str);
 
 
 #endif

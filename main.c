@@ -4,7 +4,6 @@
 #include <assert.h>
 
 
-
 #define ASSERT_STRING(expected, got) assertString(expected, got, \
 __FILE__, __FUNCTION__, __LINE__)
 
@@ -391,6 +390,33 @@ void test_for_append3() {
     ASSERT_STRING("bam bam", s2);
 }
 
+void test_for_checkWordInString1() {
+    char word[] = "Python";
+    char str[] = "Phonk tyrbo";
+
+    assert(checkWordInString(word, str) == true);
+}
+
+void test_for_checkWordInString2() {
+    char word[] = "junior";
+    char str[] = "bim bim bam bam";
+
+    assert(checkWordInString(word, str) == false);
+}
+
+void test_for_checkWordInString3() {
+    char word[] = "oguzok";
+    char str[] = "";
+
+    assert(checkWordInString(word, str) == false);
+}
+
+void test_checkWordInString() {
+    test_for_checkWordInString1();
+    test_for_checkWordInString2();
+    test_for_checkWordInString3();
+}
+
 void test_append() {
     test_for_append1();
     test_for_append2();
@@ -451,7 +477,7 @@ void test_areWordsOrdered() {
 }
 
 
-void test_replaceDigitsToNumOfSpaces(){
+void test_replaceDigitsToNumOfSpaces() {
     test_replaceDigitsToNumOfSpaces1();
     test_replaceDigitsToNumOfSpaces2();
     test_replaceDigitsToNumOfSpaces3();
@@ -479,7 +505,7 @@ void test_removeExtraSpaces() {
 
 }
 
-void test_replace(){
+void test_replace() {
     test_replace1();
     test_replace2();
     test_replace3();
@@ -505,15 +531,13 @@ void test() {
     test_findWordBeforeFirstOccurrence();
     test_remove_palindromes();
     test_append();
+    test_checkWordInString();
 
 }
 
 int main() {
 
     test();
-
-
-
 
     return 0;
 }
