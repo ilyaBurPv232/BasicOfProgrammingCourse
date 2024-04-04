@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
-
+#include <stdbool.h>
 
 
 typedef struct WordDescriptor {
@@ -109,5 +109,11 @@ int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 void replaceDigitsToNumOfSpaces(char *s);
 
 void replace(char *source, char *w1, char *w2);
+
+// Определяет, являются ли два слова одинаковыми
+bool areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+//Определяет, упорядочены ли лексикографически слова данного предложения
+bool areWordsOrdered(char *s);
 
 #endif

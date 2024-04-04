@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "string_.h"
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
@@ -259,4 +260,38 @@ void replace(char *source, char *w1, char *w2) {
     }
 
     *recPtr = '\0';
+}
+
+bool areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
+    char *ptr1 = w1.begin;
+    char *ptr2 = w2.begin;
+    while (ptr1 <= w1.end && ptr2 <= w2.end) {
+        if (*ptr1 != *ptr2)
+            return false;
+
+        ptr1++;
+        ptr2++;
+    }
+
+    if (ptr1 > w1.end && ptr2 > w2.end)
+        return true;
+    else
+        return false;
+}
+
+bool areWordsOrdered(char *s) {
+    WordDescriptor word1;
+    WordDescriptor word2;
+    if (getWord(s, &word1)) {
+        word2 = word1;
+        while (getWord(s, &word1)) {
+            if (areWordsEqual(word1, word2) < 0)
+                return false;
+            word2 = word1;
+            s = word1.end;
+        }
+
+        return true;
+    } else
+        return true;
 }
