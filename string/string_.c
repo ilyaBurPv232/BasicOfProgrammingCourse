@@ -16,6 +16,66 @@ size_t strlen_(const char *begin) {
     return end - begin;
 }
 
+char *strpbrk_(const char *str, const char *delim) {
+    const char *ptr = str;
+
+    while (*ptr != '\0') {
+        const char *d = delim;
+        while (*d != '\0') {
+            if (*ptr == *d) {
+                return (char *) ptr;
+            }
+            d++;
+        }
+        ptr++;
+    }
+
+    return NULL;
+}
+
+char *strtok_(char *str, const char *delim) {
+    static char *savedToken = NULL;
+
+    if (str != NULL) {
+        savedToken = str;
+    }
+
+    if (savedToken == NULL) {
+        return NULL;
+    }
+
+    char *tokenStart = savedToken;
+    char *tokenEnd = strpbrk_(savedToken, delim);
+
+    if (tokenEnd != NULL) {
+        *tokenEnd = '\0';
+        savedToken = tokenEnd + 1;
+    } else {
+        savedToken = NULL;
+    }
+
+    return tokenStart;
+}
+
+char *strcat_(char *dest, const char *src) {
+    char *ptr = dest;
+
+    while (*ptr != '\0') {
+        ptr++;
+    }
+
+    while (*src != '\0') {
+        *ptr = *src;
+        ptr++;
+        src++;
+    }
+
+    *ptr = '\0';
+
+    return dest;
+}
+
+
 char *find(char *begin, char *end, int ch) {
     while (begin != end && *begin != ch)
         begin++;
@@ -363,4 +423,24 @@ size_t howManyWordsPalindromes(char *s) {
     }
 
     return countPalindromes;
+}
+
+
+
+void mergeStrings(char *s1, char *s2, char *result) {
+    char *word1 = strtok_(s1, " ");
+    char *word2 = strtok_(s2, " ");
+
+    while (word1 != NULL || word2 != NULL) {
+        if (word1 != NULL) {
+            strcat_(result, word1);
+            strcat_(result, " ");
+            word1 = strtok_(NULL, " ");
+        }
+        if (word2 != NULL) {
+            strcat_(result, word2);
+            strcat_(result, " ");
+            word2 = strtok_(NULL, " ");
+        }
+    }
 }
