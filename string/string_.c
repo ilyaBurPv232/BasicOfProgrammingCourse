@@ -648,3 +648,22 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
 
     return lastWord;
 }
+
+bool hasDuplicateWords(char *s) {
+    char *words[100];
+    int wordCount = 0;
+
+    char *word = strtok_(s, " ");
+    while (word != NULL) {
+        words[wordCount] = word;
+        wordCount++;
+        word = strtok_(NULL, " ");
+    }
+
+    for (int i = 0; i < wordCount; i++)
+        for (int j = i + 1; j < wordCount; j++)
+            if (strcmp(words[i], words[j]) == 0)
+                return true;
+
+    return false;
+}

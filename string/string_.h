@@ -182,5 +182,7 @@ int isWordInBagOfWords(WordDescriptor word, BagOfWords bag);
 // Определяет последнее из слов первой строки, которое есть во второй строке.
 WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
 
+// Определяет, есть ли в строке одинаковые слова
+bool hasDuplicateWords(char *s);
 
 #endif
