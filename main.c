@@ -302,6 +302,25 @@ void test_hasDuplicateWords() {
     assert(hasDuplicateWords(str2) == false);
 }
 
+void test_FindPairWithSameLetters1() {
+    BagOfWords bag1;
+    bag1.size = 0;
+    parseString("hello world olleh dlrow", &bag1);
+    assert(findPairWithSameLetters(&bag1) == 1);
+}
+
+void test_FindPairWithSameLetters2() {
+    BagOfWords bag2;
+    bag2.size = 0;
+    parseString("hey hi ha", &bag2);
+    assert(findPairWithSameLetters(&bag2) == 0);
+}
+
+void test_FindPairWithSameLetters() {
+    test_FindPairWithSameLetters1();
+    test_FindPairWithSameLetters2();
+}
+
 void test_lastWordInFirstStringInSecondString() {
     test_lastWordInFirstStringInSecondString1();
     test_lastWordInFirstStringInSecondString2();
@@ -384,6 +403,7 @@ void test() {
     test_getWordBeforeFirstWordWithA();
     test_lastWordInFirstStringInSecondString();
     test_hasDuplicateWords();
+    test_FindPairWithSameLetters();
 
 }
 

@@ -667,3 +667,54 @@ bool hasDuplicateWords(char *s) {
 
     return false;
 }
+
+
+int compareWords(char *word1, char *word2) {
+    int count1[26] = {0};
+    int count2[26] = {0};
+
+    size_t len1 = strlen_(word1);
+    size_t len2 = strlen_(word2);
+
+    if (len1 != len2) {
+        return 0;
+    }
+
+    for (int i = 0; i < len1; i++) {
+        count1[tolower(word1[i]) - 'a']++;
+        count2[tolower(word2[i]) - 'a']++;
+    }
+
+    for (int i = 0; i < 26; i++) {
+        if (count1[i] != count2[i]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+void parseString(char *str, BagOfWords *bag) {
+    char *token = strtok_(str, " ");
+    while (token != NULL) {
+        bag->words[bag->size].begin = token;
+        bag->words[bag->size].end = token + strlen_(token);
+        bag->size++;
+        token = strtok_(NULL, " ");
+    }
+}
+
+int findPairWithSameLetters(BagOfWords *bag) {
+    for (int i = 0; i < bag->size - 1; i++) {
+        for (int j = i + 1; j < bag->size; j++) {
+            if (compareWords(bag->words[i].begin, bag->words[j].begin)) {
+                char result1[MAX_WORD_SIZE], result2[MAX_WORD_SIZE];
+                wordDescriptorToString(bag->words[i], result1);
+                wordDescriptorToString(bag->words[j], result2);
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}

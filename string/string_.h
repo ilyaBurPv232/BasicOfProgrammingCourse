@@ -185,4 +185,14 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
 // Определяет, есть ли в строке одинаковые слова
 bool hasDuplicateWords(char *s);
 
+// Сравнивает 2 слова между собой
+int compareWords(char *word1, char *word2);
+
+// Разбирает строку
+void parseString(char *str, BagOfWords *bag);
+
+// Определяет, есть ли в данной строке пара слов, составленных
+// из одинакового набора букв.
+int findPairWithSameLetters(BagOfWords *bag);
+
 #endif
