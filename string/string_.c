@@ -6,6 +6,9 @@
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
 
+BagOfWords _bag;
+BagOfWords _bag2;
+
 size_t strlen_(const char *begin) {
     char *end = begin;
     while (*end != '\0')
@@ -294,4 +297,37 @@ bool areWordsOrdered(char *s) {
         return true;
     } else
         return true;
+}
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    WordDescriptor word;
+    bag->size = 0;
+    while (getWord(s, &word)) {
+        bag->words[bag->size] = word;
+        bag->size++;
+        s = word.end;
+    }
+}
+
+char *copyReverse(char *rbeginSource, const char *rendSource, char
+*beginDestination) {
+    while (rbeginSource != rendSource)
+        (*beginDestination++) = *rbeginSource--;
+
+    return beginDestination;
+}
+
+void reverseWordsBag(char *s) {
+    *copy(s, getEndOfString(s), _stringBuffer) = '\0';
+    getBagOfWords(&_bag, _stringBuffer);
+    char *copyS = s;
+    for (int i = 0; i < _bag.size; i++) {
+        copyS = copyReverse(_bag.words[i].end - 1, _bag.words[i].begin -
+                                                   1, copyS);
+        *copyS++ = ' ';
+    }
+    if (copyS != s)
+        copyS--;
+
+    *copyS = '\0';
 }

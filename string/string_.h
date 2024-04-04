@@ -17,6 +17,10 @@ typedef struct WordDescriptor {
     char *end; // позиция первого символа, после последнего символа слова
 } WordDescriptor;
 
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
 
 //возвращает длину строки
 size_t strlen_(const char *begin);
@@ -115,5 +119,18 @@ bool areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 
 //Определяет, упорядочены ли лексикографически слова данного предложения
 bool areWordsOrdered(char *s);
+
+//Выводит слова данной строки в обратном порядке по одному в строке экрана
+void getBagOfWords(BagOfWords *bag, char *s);
+
+// Копирует символы из заданного диапазона строки в обратном порядке в другую строку.
+// Начиная с указателя rbeginSource и до rendSource,
+// символы копируются в строку, начиная с указателя beginDestination.
+char *copyReverse(char *rbeginSource, const char *rendSource, char
+*beginDestination);
+
+// Разбивает входную строку s на слова, затем переворачивает каждое слово
+// и объединяет их в одну строку
+void reverseWordsBag(char *s);
 
 #endif

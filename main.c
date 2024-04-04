@@ -174,6 +174,33 @@ void test_areWordsOrdered5() {
     assert(areWordsOrdered(s) == true);
 }
 
+void test_reverseWordsBag1() {
+    char s[MAX_STRING_SIZE] = "h e y";
+    reverseWordsBag(s);
+
+    ASSERT_STRING("h e y", s);
+}
+
+void test_reverseWordsBag2() {
+    char s[MAX_STRING_SIZE] = "Artyom";
+    reverseWordsBag(s);
+
+    ASSERT_STRING("moytrA", s);
+}
+
+void test_reverseWordsBag3() {
+    char s[MAX_STRING_SIZE] = "";
+    reverseWordsBag(s);
+
+    ASSERT_STRING("", s);
+}
+
+void test_reverseWordsBag() {
+    test_reverseWordsBag1();
+    test_reverseWordsBag2();
+    test_reverseWordsBag3();
+}
+
 void test_areWordsOrdered() {
     test_areWordsOrdered1();
     test_areWordsOrdered2();
@@ -225,6 +252,7 @@ void test() {
     test_replaceDigitsToNumOfSpaces();
     test_replace();
     test_areWordsOrdered();
+    test_reverseWordsBag();
 
 }
 
