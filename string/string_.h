@@ -22,6 +22,13 @@ typedef struct BagOfWords {
     size_t size;
 } BagOfWords;
 
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    FIRST_WORD_WITH_A,
+    NOT_FOUND_A_WORD_WITH_A,
+    WORD_FOUND,
+    EMPTY_STRING
+} WordBeforeFirstWordWithAReturnCode;
+
 //возвращает длину строки
 size_t strlen_(const char *begin);
 
@@ -156,6 +163,12 @@ void mergeStrings(char *s1, char *s2, char *result);
 
 //Преобразовывает строку, изменяя порядок следования слов в строке на обратный.
 void reverseWords(char *str);
+
+// Выводит первое слово перед словом с буквой А
+void printWordBeforeFirstWordWithA(char *s);
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s,
+                                                               WordDescriptor *w);
 
 
 #endif
