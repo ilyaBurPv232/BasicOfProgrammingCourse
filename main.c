@@ -4,6 +4,7 @@
 #include <assert.h>
 
 
+
 #define ASSERT_STRING(expected, got) assertString(expected, got, \
 __FILE__, __FUNCTION__, __LINE__)
 
@@ -354,6 +355,23 @@ void test_for_findWordBeforeFirstOccurrence3() {
     ASSERT_STRING("0", wordsBeforeW);
 }
 
+void test_remove_palindromes1() {
+    char str1[] = "mamam hi mamam";
+    removePalindromes(str1);
+    ASSERT_STRING("hi ", str1);
+}
+
+void test_remove_palindromes2() {
+    char str2[] = "mama hi amam";
+    removePalindromes(str2);
+    ASSERT_STRING("mama hi amam ", str2);
+}
+
+void test_remove_palindromes() {
+    test_remove_palindromes1();
+    test_remove_palindromes2();
+}
+
 void test_findWordBeforeFirstOccurrence() {
     test_for_findWordBeforeFirstOccurrence1();
     test_for_findWordBeforeFirstOccurrence2();
@@ -455,6 +473,7 @@ void test() {
     test_FindPairWithSameLetters();
     test_getWordsExceptLast();
     test_findWordBeforeFirstOccurrence();
+    test_remove_palindromes();
 
 }
 

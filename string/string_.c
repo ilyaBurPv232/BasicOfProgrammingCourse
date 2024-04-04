@@ -1,8 +1,10 @@
 #include <memory.h>
 #include <string.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "string_.h"
+#include <stdlib.h>
+#include <assert.h>
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
 
@@ -781,4 +783,29 @@ char *findWordBeforeFirstOccurrence(char *s1, char *s2) {
     }
 
     return "0";
+}
+
+bool isPalindromeInString(char *s) {
+    size_t length = strlen_(s);
+    for (int i = 0; i < length / 2; i++)
+        if (tolower(s[i]) != tolower(s[length - i - 1]))
+            return false;
+
+    return true;
+}
+
+void removePalindromes(char *str) {
+    char *token = strtok_(str, " ");
+    char result[1000] = "";
+
+    while (token != NULL) {
+        if (!isPalindromeInString(token)) {
+            strcat_(result, token);
+            strcat_(result, " ");
+        }
+
+        token = strtok_(NULL, " ");
+    }
+
+    strcpy_(str, result);
 }
