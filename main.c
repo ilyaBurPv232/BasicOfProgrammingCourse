@@ -140,9 +140,41 @@ void test_convertMatrixRowsToColumns_t1() {
         ASSERT_FILES(filename1, exp_file1);
 }
 
+int convertFixedPointNumbersToFloatingPoint(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    FILE *result_file = fopen("1.txt", "w");
+    double number;
+
+    if (file == NULL || result_file == NULL) {
+        printf("Error opening files.\n");
+        return 1;
+    }
+
+    while (fscanf(file, "%lf", &number) == 1) {
+        fprintf(result_file, "%.2f ", number);
+    }
+
+    fclose(file);
+    fclose(result_file);
+
+    copyFileContent("1.txt", filename);
+
+    return 0;
+}
+
+void test_convertFixedPointNumbersToFloatingPoint_t2() {
+    const char *filename2 = "19_2.txt";
+    const char *exp_file2 = "19_2_test.txt";
+    int ans = convertFixedPointNumbersToFloatingPoint(filename2);
+
+    if (ans == 0)
+        ASSERT_FILES(filename2, exp_file2);
+}
+
 int main(){
 
     test_convertMatrixRowsToColumns_t1();
+    test_convertFixedPointNumbersToFloatingPoint_t2();
 
     return 0;
 }
