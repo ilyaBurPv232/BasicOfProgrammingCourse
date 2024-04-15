@@ -171,10 +171,59 @@ void test_convertFixedPointNumbersToFloatingPoint_t2() {
         ASSERT_FILES(filename2, exp_file2);
 }
 
+int calculateValueOfExpression(const char *filename) {
+    FILE *file = fopen(filename, "r+");
+    char operation;
+    int operand1, operand2, result;
+
+    if (file == NULL) {
+        printf("File opening error\n");
+        return 1;
+    }
+
+    fscanf(file, "%d %c %d", &operand1, &operation, &operand2);
+
+    switch (operation) {
+        case '+':
+            result = operand1 + operand2;
+            break;
+        case '-':
+            result = operand1 - operand2;
+            break;
+        case '*':
+            result = operand1 * operand2;
+            break;
+        case '/':
+            result = operand1 / operand2;
+            break;
+        default:
+            printf("Unsupported operation\n");
+            fclose(file);
+            return 1;
+    }
+
+    fprintf(file, "\nResult: %d\n", result);
+
+    fclose(file);
+
+    return 0;
+}
+
+void test_calculateValueOfExpression_t3() {
+    const char *filename3 = "19_3.txt";
+    const char *exp_file3 = "19_3_test.txt";
+    int ans = calculateValueOfExpression(filename3);
+
+    if (ans == 0)
+        ASSERT_FILES(filename3, exp_file3);
+}
+
 int main(){
 
     test_convertMatrixRowsToColumns_t1();
     test_convertFixedPointNumbersToFloatingPoint_t2();
+    test_calculateValueOfExpression_t3();
+    
 
     return 0;
 }
