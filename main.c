@@ -308,6 +308,81 @@ void test_updateFileWithTheLongestWordInString_t5() {
         ASSERT_FILES(filename5, exp_file5);
 }
 
+typedef struct {
+    int power;
+    int coefficient;
+} Polynomial;
+
+int pow_(int base, int exp) {
+    int result = 1;
+    while (exp > 0) {
+        result *= base;
+        exp--;
+    }
+
+    return result;
+}
+
+void deletePolynomialsWithRoot(const char *filename, int x) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("result_file.txt", "wb");
+    if (!result_file) {
+        printf("Error creating resulting file.\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    Polynomial poly;
+    while (fread(&poly, sizeof(Polynomial), 1, file)) {
+        if (poly.coefficient * pow_(x, poly.power) != (x * x)) {
+            fwrite(&poly, sizeof(Polynomial), 1, result_file);
+        }
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
+
+void test_deletePolynomialsWithRoot1() {
+    char *filename6 = "arr_of_polynomials.txt";
+    char *exp_file6 = "upd_arr_of_polynomials.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename6, 2);
+    ASSERT_FILES(exp_file6, result);
+}
+
+void test_deletePolynomialsWithRoot2() {
+    char *filename6 = "1_arr_of_polynomials.txt";
+    char *exp_file6 = "1_upd_arr_of_polynomials.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename6, 1);
+    ASSERT_FILES(exp_file6, result);
+}
+
+void test_deletePolynomialsWithRoot3() {
+    char *filename6 = "2_arr_of_polynomials.txt";
+    char *exp_file6 = "2_upd_arr_of_polynomials.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename6, 1);
+    ASSERT_FILES(exp_file6, result);
+}
+
+void test_deletePolynomialsWithRoot_t6() {
+    test_deletePolynomialsWithRoot1();
+    test_deletePolynomialsWithRoot2();
+    test_deletePolynomialsWithRoot3();
+}
+
+
+
 int main(){
 
     test_convertMatrixRowsToColumns_t1();
@@ -315,6 +390,7 @@ int main(){
     test_calculateValueOfExpression_t3();
     test_updateFileSavingOnlyIfMatchingSequence_t4();
     test_updateFileWithTheLongestWordInString_t5();
+    test_deletePolynomialsWithRoot_t6();
 
 
     return 0;
