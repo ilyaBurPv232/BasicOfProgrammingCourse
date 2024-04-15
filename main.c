@@ -1,543 +1,148 @@
-#include "string/string_.h"
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
+#include <string.h>
 #include <assert.h>
-
-
-#define ASSERT_STRING(expected, got) assertString(expected, got, \
-__FILE__, __FUNCTION__, __LINE__)
-
-void test_removeExtraSpaces1() {
-    char str[] = "Hallo   , Peter      ?";
-    char exp[] = "Hallo , Peter ?";
-    removeExtraSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeExtraSpaces2() {
-    char str[] = "";
-    char exp[] = "";
-    removeExtraSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeExtraSpaces3() {
-    char str[] = "ABoba ,slon 1 2 3";
-    char exp[] = "ABoba ,slon 1 2 3";
-    removeExtraSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeExtraSpaces4() {
-    char str[] = "      ";
-    char exp[] = "";
-    removeExtraSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeAdjacentEqualLetters1() {
-    char str[] = "1111  22222 aaaaaaabbbbbaaaaa";
-    char exp[] = "1 2 aba";
-    removeAdjacentEqualLetters(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeAdjacentEqualLetters2() {
-    char str[] = "";
-    char exp[] = "";
-    removeAdjacentEqualLetters(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeAdjacentEqualLetters3() {
-    char str[] = "A B C";
-    char exp[] = "A B C";
-    removeAdjacentEqualLetters(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_removeAdjacentEqualLetters4() {
-    char str[] = "AAAaaa";
-    char exp[] = "Aa";
-    removeAdjacentEqualLetters(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_digitsToStart1() {
-    char str[] = "1bo58ob9a 223924 faadba";
-    char exp[] = "1589booba 223924 faadba";
-    digitsToStart(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_digitsToStart2() {
-    char str[] = "";
-    char exp[] = "";
-    digitsToStart(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_digitsToStart3() {
-    char str[] = "123abc abc123 1a2b3c";
-    char exp[] = "123abc 123abc 123abc";
-    digitsToStart(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_replaceDigitsToNumOfSpaces1() {
-    char str[MAX_STRING_SIZE] = "p3a1s lol";
-    char exp[] = "p   a s lol";
-    replaceDigitsToNumOfSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_replaceDigitsToNumOfSpaces2() {
-    char str[MAX_STRING_SIZE] = "p3a1s 101";
-    char exp[] = "p   a s   ";
-    replaceDigitsToNumOfSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_replaceDigitsToNumOfSpaces3() {
-    char str[MAX_STRING_SIZE] = "";
-    char exp[] = "";
-    replaceDigitsToNumOfSpaces(str);
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_replace1() {
-    char str[MAX_STRING_SIZE] = "aboba i love my mom aboba";
-    char w1[] = "aboba";
-    char w2[] = "goddamn";
-    replace(str, w1, w2);
-    char exp[MAX_STRING_SIZE] = "goddamn i love my mom goddamn";
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_replace2() {
-    char str[MAX_STRING_SIZE] = "i love aboba, my mom is baking aboba";
-    char w1[] = "aboba";
-    char w2[] = "cake";
-    replace(str, w1, w2);
-    char exp[MAX_STRING_SIZE] = "i love cake, my mom is baking cake";
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_replace3() {
-    char str[MAX_STRING_SIZE] = "where is my mom mom dad";
-    char w1[] = "mom";
-    char w2[] = "";
-    replace(str, w1, w2);
-    char exp[MAX_STRING_SIZE] = "where is my   dad";
-
-    ASSERT_STRING(exp, str);
-}
-
-void test_areWordsOrdered1() {
-    char s[] = "";
-    assert(areWordsOrdered(s) == true);
-}
-
-void test_areWordsOrdered2() {
-    char s[] = "dream";
-    assert(areWordsOrdered(s) == true);
-}
-
-void test_areWordsOrdered3() {
-    char s[] = "pass op";
-    assert(areWordsOrdered(s) == true);
-}
-
-void test_areWordsOrdered4() {
-    char s[] = "pass pass";
-    assert(areWordsOrdered(s) == true);
-}
-
-void test_areWordsOrdered5() {
-    char s[] = "a ab baaa ca cd";
-    assert(areWordsOrdered(s) == true);
-}
-
-void test_reverseWordsBag1() {
-    char s[MAX_STRING_SIZE] = "h e y";
-    reverseWordsBag(s);
-
-    ASSERT_STRING("h e y", s);
-}
-
-void test_reverseWordsBag2() {
-    char s[MAX_STRING_SIZE] = "Artyom";
-    reverseWordsBag(s);
-
-    ASSERT_STRING("moytrA", s);
-}
-
-void test_reverseWordsBag3() {
-    char s[MAX_STRING_SIZE] = "";
-    reverseWordsBag(s);
-
-    ASSERT_STRING("", s);
-}
-
-void test_howManyWordsPalindromes1() {
-    char s[] = "";
-
-    assert(howManyWordsPalindromes(s) == 0);
-}
-
-void test_howManyWordsPalindromes2() {
-    char s[] = "heh";
-
-    assert(howManyWordsPalindromes(s) == 1);
-}
-
-void test_howManyWordsPalindromes3() {
-    char s[] = "heh,heyeh";
-
-    assert(howManyWordsPalindromes(s) == 2);
-}
-
-void test_howManyWordsPalindromes4() {
-    char s[] = "heh,hi";
-
-    assert(howManyWordsPalindromes(s) == 1);
-}
-
-void test_howManyWordsPalindromes5() {
-    char s[] = "a";
-
-    assert(howManyWordsPalindromes(s) == 1);
-}
-
-void test_mergeString1() {
-    char s1[] = "Hello how are you";
-    char s2[] = "I am fine thank you";
-    char result[100] = "";
-
-    mergeStrings(s1, s2, result);
-
-    ASSERT_STRING("Hello I am fine thank you ", result);
-}
-
-void test_mergeString2() {
-    char s1[] = "Thank you my friend";
-    char s2[] = "Hello how are you";
-    char result[100] = "";
-
-    mergeStrings(s1, s2, result);
-
-    ASSERT_STRING("Thank Hello how are you ", result);
-}
-
-void test_reverseWords() {
-    char p[MAX_STRING_SIZE] = "Hello world! This is a test.";
-    reverseWords(p);
-
-    ASSERT_STRING(".test a is This !world Hello", p);
-
-    char c[MAX_STRING_SIZE] = ".test a is This !world Hello";
-    reverseWords(c);
-
-    ASSERT_STRING("Hello world! This is a test.", c);
-}
-
-void test_getWordBeforeFirstWordWithA() {
-    WordDescriptor word;
-    char s1[] = "";
-    assert(getWordBeforeFirstWordWithA(s1, &word) == EMPTY_STRING);
-
-    char s2[] = "ABC";
-    assert(getWordBeforeFirstWordWithA(s2, &word) == FIRST_WORD_WITH_A);
-
-    char s3[] = "BC A";
-    assert(getWordBeforeFirstWordWithA(s3, &word) == WORD_FOUND);
-
-    char s4[] = "B Q WE YR OW  IUWR";
-    assert(getWordBeforeFirstWordWithA(s4, &word) == NOT_FOUND_A_WORD_WITH_A);
-}
-
-void test_lastWordInFirstStringInSecondString1() {
-    char s1_1[] = "Hi ha he";
-    char s2_1[] = "Hi he";
-    WordDescriptor word1 = lastWordInFirstStringInSecondString(s1_1, s2_1);
-    char str1[MAX_WORD_SIZE];
-
-    wordDescriptorToString(word1, str1);
-
-    ASSERT_STRING("he", str1);
-}
-
-void test_lastWordInFirstStringInSecondString2() {
-    char s1_2[] = "Hi ha he";
-    char s2_2[] = "Hi ha";
-    WordDescriptor word2 = lastWordInFirstStringInSecondString(s1_2, s2_2);
-    char str2[MAX_WORD_SIZE];
-
-    wordDescriptorToString(word2, str2);
-
-    ASSERT_STRING("ha", str2);
-}
-
-void test_hasDuplicateWords() {
-    char str1[] = "my friend Hello my";
-    assert(hasDuplicateWords(str1) == true);
-
-    char str2[] = "my friend Hello";
-    assert(hasDuplicateWords(str2) == false);
-}
-
-void test_FindPairWithSameLetters1() {
-    BagOfWords bag1;
-    bag1.size = 0;
-    parseString("hello world olleh dlrow", &bag1);
-    assert(findPairWithSameLetters(&bag1) == 1);
-}
-
-void test_FindPairWithSameLetters2() {
-    BagOfWords bag2;
-    bag2.size = 0;
-    parseString("hey hi ha", &bag2);
-    assert(findPairWithSameLetters(&bag2) == 0);
-}
-
-void test_getWordsExceptLast1() {
-    char str1[] = "Hello world this is a test";
-    char *modified_str1 = getWordsExceptLast(str1);
-
-    ASSERT_STRING(modified_str1, "Hello world this is a");
-}
-
-void test_getWordsExceptLast2() {
-    char str2[] = "hihi haha";
-    char *modified_str2 = getWordsExceptLast(str2);
-
-    ASSERT_STRING(modified_str2, "hihi");
-}
-
-void test_for_findWordBeforeFirstOccurrence1() {
-    char s1[] = "Python is awsome!";
-    char s2[] = "C is good too";
-
-    char *wordBeforeW = findWordBeforeFirstOccurrence(s1, s2);
-    ASSERT_STRING("Python", wordBeforeW);
+#include "libs/data_structures/matrix/matrix.h"
+
+#define MAX_SIZE 100
+#define MAX_FILE_SIZE 1024
+
+#define ASSERT_FILES(filename1, filename2) assertTXT(filename1, filename2, __FUNCTION__)
+
+int randint(int n) {
+    if ((n - 1) == RAND_MAX) {
+        return rand();
+    } else {
+
+        assert(n <= RAND_MAX);
+
+        int end = RAND_MAX / n;
+        assert(end > 0);
+        end *= n;
+
+        int r;
+        while ((r = rand()) >= end);
+
+        return r % n;
+    }
+}
+
+char *vopros() {
+    int otvet = randint(5);
+    switch (otvet) {
+        case 1:
+            return "Toomber";
+            break;
+        case 2:
+            return "Boomer";
+            break;
+        case 3:
+            return "Exoomer";
+            break;
+        case 4:
+            return "Yoomer";
+            break;
+        default:
+            return "Doomer";
+    }
 }
 
-void test_for_findWordBeforeFirstOccurrence2() {
-    char s1[] = "No common words";
-    char s2[] = "Different strings";
+void assertTXT(const char *filename1, const char *filename2, char const *funcName) {
+    FILE *f1 = fopen(filename1, "r");
+    FILE *f2 = fopen(filename2, "r");
 
-    char *wordBeforeW = findWordBeforeFirstOccurrence(s1, s2);
-    ASSERT_STRING("0", wordBeforeW);
-}
-
-void test_for_findWordBeforeFirstOccurrence3() {
-    char s1[] = "no words before w";
-    char s2[] = "hehe no";
-
-    char *wordsBeforeW = findWordBeforeFirstOccurrence(s1, s2);
-    ASSERT_STRING("0", wordsBeforeW);
-}
-
-void test_remove_palindromes1() {
-    char str1[] = "mamam hi mamam";
-    removePalindromes(str1);
-    ASSERT_STRING("hi ", str1);
-}
-
-void test_remove_palindromes2() {
-    char str2[] = "mama hi amam";
-    removePalindromes(str2);
-    ASSERT_STRING("mama hi amam ", str2);
-}
-
-void test_for_append1() {
-    char s1[MAX_STRING_SIZE] = "Hello";
-    char s2[MAX_STRING_SIZE] = "word the world";
-    append(s1, s2);
-
-    ASSERT_STRING("Hello the world", s1);
-}
-
-void test_for_append2() {
-    char s1[MAX_STRING_SIZE] = "the world";
-    char s2[MAX_STRING_SIZE] = "Hello";
-    append(s1, s2);
-
-    ASSERT_STRING("Hello world", s2);
-}
-
-void test_for_append3() {
-    char s1[MAX_STRING_SIZE] = "bim bim";
-    char s2[MAX_STRING_SIZE] = "bam bam";
-    append(s1, s2);
-
-    ASSERT_STRING("bam bam", s2);
-}
-
-void test_for_checkWordInString1() {
-    char word[] = "Python";
-    char str[] = "Phonk tyrbo";
-
-    assert(checkWordInString(word, str) == true);
-}
-
-void test_for_checkWordInString2() {
-    char word[] = "junior";
-    char str[] = "bim bim bam bam";
+    if (f1 == NULL || f2 == NULL) {
+        printf("Error\n");
+        return;
+    }
 
-    assert(checkWordInString(word, str) == false);
-}
-
-void test_for_checkWordInString3() {
-    char word[] = "oguzok";
-    char str[] = "";
-
-    assert(checkWordInString(word, str) == false);
-}
-
-void test_checkWordInString() {
-    test_for_checkWordInString1();
-    test_for_checkWordInString2();
-    test_for_checkWordInString3();
-}
-
-void test_append() {
-    test_for_append1();
-    test_for_append2();
-    test_for_append3();
-}
-
-void test_remove_palindromes() {
-    test_remove_palindromes1();
-    test_remove_palindromes2();
-}
-
-void test_findWordBeforeFirstOccurrence() {
-    test_for_findWordBeforeFirstOccurrence1();
-    test_for_findWordBeforeFirstOccurrence2();
-    test_for_findWordBeforeFirstOccurrence3();
-}
+    char buffer1[MAX_FILE_SIZE];
+    char buffer2[MAX_FILE_SIZE];
 
-void test_getWordsExceptLast() {
-    test_getWordsExceptLast1();
-    test_getWordsExceptLast2();
-}
+    while (fgets(buffer1, MAX_FILE_SIZE, f1) != NULL
+           && fgets(buffer2, MAX_FILE_SIZE, f2) != NULL) {
+        if (strcmp(buffer1, buffer2) != 0) {
+            printf("Error: files is not similar\n");
+            fclose(f1);
+            fclose(f2);
+            return;
+        }
+    }
 
-void test_FindPairWithSameLetters() {
-    test_FindPairWithSameLetters1();
-    test_FindPairWithSameLetters2();
+    printf("Testing %s - %s passed\n", funcName, vopros());
 }
 
-void test_lastWordInFirstStringInSecondString() {
-    test_lastWordInFirstStringInSecondString1();
-    test_lastWordInFirstStringInSecondString2();
-}
+void copyFileContent(const char* sourceFile, const char* destinationFile) {
+    FILE *source, *destination;
+    char ch;
 
-void test_mergeString() {
-    test_mergeString1();
-    test_mergeString2();
-}
+    source = fopen(sourceFile, "r");
+    if (source == NULL) {
+        printf("The source file could not be opened for reading\n");
+        return;
+    }
 
-void test_howManyWordsPalindromes() {
-    test_howManyWordsPalindromes1();
-    test_howManyWordsPalindromes2();
-    test_howManyWordsPalindromes3();
-    test_howManyWordsPalindromes4();
-    test_howManyWordsPalindromes5();
-}
+    destination = fopen(destinationFile, "w");
+    if (destination == NULL) {
+        printf("The destination file could not be opened for writing\n");
+        fclose(source);
+        return;
+    }
 
-void test_reverseWordsBag() {
-    test_reverseWordsBag1();
-    test_reverseWordsBag2();
-    test_reverseWordsBag3();
-}
+    while ((ch = fgetc(source)) != EOF)
+        fputc(ch, destination);
 
-void test_areWordsOrdered() {
-    test_areWordsOrdered1();
-    test_areWordsOrdered2();
-    test_areWordsOrdered3();
-    test_areWordsOrdered4();
-    test_areWordsOrdered5();
+    fclose(source);
+    fclose(destination);
 }
 
+int convertMatrixRowsToColumns(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("File opening error\n");
+        return 1;
+    }
 
-void test_replaceDigitsToNumOfSpaces() {
-    test_replaceDigitsToNumOfSpaces1();
-    test_replaceDigitsToNumOfSpaces2();
-    test_replaceDigitsToNumOfSpaces3();
-}
+    FILE *result_file = fopen("1.txt", "w");
+    if (result_file == NULL) {
+        printf("File creation error\n");
+        return 1;
+    }
 
-void test_removeAdjacentEqualLetters() {
-    test_removeAdjacentEqualLetters1();
-    test_removeAdjacentEqualLetters2();
-    test_removeAdjacentEqualLetters3();
-    test_removeAdjacentEqualLetters4();
+    int n;
+    while (fscanf(file, "%d", &n) == 1) {
+        int matrix[n][n];
 
-}
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                fscanf(file, "%d", &matrix[i][j]);
 
-void test_digitsToStart() {
-    test_digitsToStart1();
-    test_digitsToStart2();
-    test_digitsToStart3();
-}
+        fprintf(result_file, "%d ", n);
+        for (int j = 0; j < n; j++)
+            for (int i = 0; i < n; i++)
+                fprintf(result_file, "%d ", matrix[i][j]);
+    }
 
-void test_removeExtraSpaces() {
-    test_removeExtraSpaces1();
-    test_removeExtraSpaces2();
-    test_removeExtraSpaces3();
-    test_removeExtraSpaces4();
+    fclose(file);
+    fclose(result_file);
 
-}
+    copyFileContent("1.txt", filename);
 
-void test_replace() {
-    test_replace1();
-    test_replace2();
-    test_replace3();
+    return 0;
 }
-
-void test() {
 
-    test_removeExtraSpaces();
-    test_removeAdjacentEqualLetters();
-    test_digitsToStart();
-    test_replaceDigitsToNumOfSpaces();
-    test_replace();
-    test_areWordsOrdered();
-    test_reverseWordsBag();
-    test_howManyWordsPalindromes();
-    test_mergeString();
-    test_reverseWords();
-    test_getWordBeforeFirstWordWithA();
-    test_lastWordInFirstStringInSecondString();
-    test_hasDuplicateWords();
-    test_FindPairWithSameLetters();
-    test_getWordsExceptLast();
-    test_findWordBeforeFirstOccurrence();
-    test_remove_palindromes();
-    test_append();
-    test_checkWordInString();
+void test_convertMatrixRowsToColumns_t1() {
+    const char *filename1 = "19_1.txt";
+    const char *exp_file1 = "19_1_test.txt";
+    int ans = convertMatrixRowsToColumns(filename1);
 
+    if (ans == 0)
+        ASSERT_FILES(filename1, exp_file1);
 }
 
-int main() {
+int main(){
 
-    test();
+    test_convertMatrixRowsToColumns_t1();
 
     return 0;
 }
