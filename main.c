@@ -449,6 +449,67 @@ void test_sortPositiveAndNegative_t7() {
     test_sortPositiveAndNegative3();
 }
 
+void replaceNonSymmetricMatrixWithTransposed(char *filename) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("result.txt", "wb");
+    if (result_file == NULL) {
+        printf("Error creating resulting file.\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    matrix m;
+    while (fread(&m, sizeof(matrix), 1, file)) {
+        if (!isSymmetricMatrix(&m)) {
+            transposeMatrix(&m);
+            fwrite(&m, sizeof(matrix), 1, result_file);
+        } else {
+            fwrite(&m, sizeof(matrix), 1, result_file);
+        }
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
+
+void test_replaceNonSymmetricMatrixWithTransposed1() {
+    char *filename7 = "data_matrix.txt";
+    char *exp_file7 = "transpose_matrix.txt";
+    char *result = "result.txt";
+
+    replaceNonSymmetricMatrixWithTransposed(filename7);
+    ASSERT_FILES(exp_file7, result);
+}
+
+void test_replaceNonSymmetricMatrixWithTransposed2() {
+    char *filename7 = "1_data_matrix.txt";
+    char *exp_file7 = "1_transpose_matrix.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename7, 1);
+    ASSERT_FILES(exp_file7, result);
+}
+
+void test_replaceNonSymmetricMatrixWithTransposed3() {
+    char *filename7 = "2_data_matrix.txt";
+    char *exp_file7 = "2_matrix_transpose.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename7, 1);
+    ASSERT_FILES(exp_file7, result);
+}
+
+void test_replaceNonSymmetricMatrixWithTransposed_t8() {
+    test_replaceNonSymmetricMatrixWithTransposed1();
+    test_replaceNonSymmetricMatrixWithTransposed2();
+    test_replaceNonSymmetricMatrixWithTransposed3();
+}
+
 
 
 int main(){
@@ -460,6 +521,7 @@ int main(){
     test_updateFileWithTheLongestWordInString_t5();
     test_deletePolynomialsWithRoot_t6();
     test_sortPositiveAndNegative_t7();
+    test_replaceNonSymmetricMatrixWithTransposed_t8();
 
 
     return 0;
