@@ -381,6 +381,74 @@ void test_deletePolynomialsWithRoot_t6() {
     test_deletePolynomialsWithRoot3();
 }
 
+void sortPositiveAndNegative(const char *filename) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("result.txt", "wb");
+    if (result_file == NULL) {
+        printf("Error creating resulting file.\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    int positive_number;
+    while (fread(&positive_number, sizeof(positive_number), 1, file)) {
+        if (positive_number > 0) {
+            fwrite(&positive_number, sizeof(positive_number), 1, result_file);
+        }
+    }
+
+    fclose(file);
+    file = fopen(filename, "rb");
+
+    int negative_number;
+    while (fread(&negative_number, sizeof(negative_number), 1, file)) {
+        if (negative_number < 0) {
+            fwrite(&negative_number, sizeof(negative_number), 1, result_file);
+        }
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
+
+void test_sortPositiveAndNegative1() {
+    char *filename7 = "arr_of_numbers.txt";
+    char *exp_file7 = "sorted_arr_of_numbers.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename7, 1);
+    ASSERT_FILES(exp_file7, result);
+}
+
+void test_sortPositiveAndNegative2() {
+    char *filename7 = "1_arr_of_numbers.txt";
+    char *exp_file7 = "1_sorted_arr_of_numbers.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename7, 1);
+    ASSERT_FILES(exp_file7, result);
+}
+
+void test_sortPositiveAndNegative3() {
+    char *filename7 = "2_arr_of_numbers.txt";
+    char *exp_file7 = "2_sorted_arr_of_numbers.txt";
+    char *result = "result.txt";
+
+    deletePolynomialsWithRoot(filename7, 1);
+    ASSERT_FILES(exp_file7, result);
+}
+
+void test_sortPositiveAndNegative_t7() {
+    test_sortPositiveAndNegative1();
+    test_sortPositiveAndNegative2();
+    test_sortPositiveAndNegative3();
+}
+
 
 
 int main(){
@@ -391,6 +459,7 @@ int main(){
     test_updateFileSavingOnlyIfMatchingSequence_t4();
     test_updateFileWithTheLongestWordInString_t5();
     test_deletePolynomialsWithRoot_t6();
+    test_sortPositiveAndNegative_t7();
 
 
     return 0;
