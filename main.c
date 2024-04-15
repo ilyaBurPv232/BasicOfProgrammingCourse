@@ -218,12 +218,51 @@ void test_calculateValueOfExpression_t3() {
         ASSERT_FILES(filename3, exp_file3);
 }
 
+int updateFileSavingOnlyIfMatchingSequence(const char *filename, char sequence[20]) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("File opening error\n");
+        return 1;
+    }
+
+    FILE *result_file = fopen("1.txt", "w");
+    if (result_file == NULL) {
+        printf("File opening error\n");
+        fclose(file);
+        return 1;
+    }
+
+    char word[100];
+
+    while (fscanf(file, "%s", word) != EOF) {
+        if (strstr(word, sequence) != NULL)
+            fprintf(result_file, "%s", word);
+    }
+
+    fclose(file);
+    fclose(result_file);
+
+    copyFileContent("1.txt", filename);
+
+    return 0;
+}
+
+void test_updateFileSavingOnlyIfMatchingSequence_t4() {
+    const char *filename4 = "19_4.txt";
+    const char *exp_file4 = "19_4_test.txt";
+    int ans = updateFileSavingOnlyIfMatchingSequence(filename4, "hi");
+
+    if (ans == 0)
+        ASSERT_FILES(filename4, exp_file4);
+}
+
 int main(){
 
     test_convertMatrixRowsToColumns_t1();
     test_convertFixedPointNumbersToFloatingPoint_t2();
     test_calculateValueOfExpression_t3();
-    
+    test_updateFileSavingOnlyIfMatchingSequence_t4();
+
 
     return 0;
 }
