@@ -230,12 +230,80 @@ void test_fourthTask() {
 
 
 
+void fillingCalcMatrix(matrix m, matrix *calc_matrix, size_t rows, size_t cols) {
+    for (size_t idx_row = 0; idx_row < rows; idx_row++) {
+        for (size_t idx_col = 0; idx_col < cols; idx_col++) {
+            if (m.values[idx_row][idx_col] == 1) {
+                if (idx_row != 0) {
+                    calc_matrix->values[idx_row][idx_col] =
+                            calc_matrix->values[idx_row - 1][idx_col] + 1;
+                } else {
+                    calc_matrix->values[idx_row][idx_col] = 1;
+                }
+            } else {
+                calc_matrix->values[idx_row][idx_col] = 0;
+            }
+        }
+    }
+}
+
+void fifthTask(matrix m, size_t rows, size_t cols, size_t *result) {
+    matrix calc_matrix = getMemMatrix(rows, cols);
+    fillingCalcMatrix(m, &calc_matrix, rows, cols);
+    size_t calc_res = 0;
+    for (size_t idx_col = 0; idx_col < cols; idx_col++) {
+        for (size_t idx_row = 0; idx_row < rows; idx_row++) {
+            for (size_t idx_k = idx_col + 1; idx_k < cols + 1; idx_k++) {
+                int min = calc_matrix.values[idx_row][idx_col];
+
+                for (size_t indFromColToK = idx_col; indFromColToK < idx_k; indFromColToK++) {
+                    if (calc_matrix.values[idx_row][indFromColToK] < min)
+                        min = calc_matrix.values[idx_row][indFromColToK];
+                }
+
+                calc_res += min;
+            }
+        }
+    }
+
+    *result = calc_res;
+}
+
+void test_fifthTask() {
+    size_t rows1 = 3;
+    size_t cols1 = 3;
+    matrix m1 = createMatrixFromArray((int[]) {
+                                              1, 0, 1,
+                                              1, 1, 0,
+                                              1, 1, 0},
+                                      3, 3);
+    size_t result1 = 0;
+    fifthTask(m1, rows1, cols1, &result1);
+
+    assert(result1 == 13);
+
+    size_t rows2 = 3;
+    size_t cols2 = 4;
+    matrix m2 = createMatrixFromArray((int[]) {
+                                              0, 1, 1, 0,
+                                              0, 1, 1, 1,
+                                              1, 1, 1, 0},
+                                      3, 4);
+    size_t result2 = 0;
+    fifthTask(m2, rows2, cols2, &result2);
+
+    assert(result2 == 24);
+}
+
+
+
 int main() {
 
     test_firstTask();
     test_secondTask();
     test_thirdTask();
     test_fourthTask();
+    test_fifthTask();
 
     return 0;
 }
