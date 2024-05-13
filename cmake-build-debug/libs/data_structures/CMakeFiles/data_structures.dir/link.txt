@@ -1,0 +1,2 @@
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ar.exe qc libdata_structures.a CMakeFiles/data_structures.dir/bitset/bitset.c.obj CMakeFiles/data_structures.dir/vector/vector.c.obj CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj CMakeFiles/data_structures.dir/matrix/matrix.c.obj
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ranlib.exe libdata_structures.a

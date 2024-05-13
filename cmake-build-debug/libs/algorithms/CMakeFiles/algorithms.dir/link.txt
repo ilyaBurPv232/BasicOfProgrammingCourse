@@ -1,0 +1,2 @@
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ar.exe qc libalgorithms.a CMakeFiles/algorithms.dir/algorithms.c.obj CMakeFiles/algorithms.dir/array/array.c.obj CMakeFiles/algorithms.dir/array/unordered_array.c.obj CMakeFiles/algorithms.dir/array/ordered_array.c.obj
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ranlib.exe libalgorithms.a
