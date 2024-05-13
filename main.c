@@ -3,6 +3,8 @@
 #include <malloc.h>
 #include "string.h"
 #include "stdio.h"
+#include "libs/data_structures/vector/vector.h"
+#include <conio.h>
 
 
 void firstTask(matrix *m, size_t countRequests, size_t *requestsArray[]) {
@@ -420,6 +422,34 @@ void test_seventhTask() {
 }
 
 
+void eighthTask(const char *s, size_t length,
+                const size_t indexes[], char *new_s) {
+    for (size_t ind = 0; ind < length; ind++) {
+        new_s[ind] = s[indexes[ind]];
+    }
+
+    new_s[length] = '\0';
+}
+
+void test_eighthTask() {
+    char s1[4] = "abc";
+    size_t lengthS1 = 3;
+    size_t indexes1[3] = {0, 1, 2};
+    char got1[4];
+    eighthTask(s1, lengthS1, indexes1, got1);
+    char expected1[4] = "abc";
+
+    assert(strcmp(got1, expected1) == 0);
+
+    char s2[5] = "abap";
+    size_t lengthS2 = 4;
+    size_t indexes2[4] = {0, 3, 2, 1};
+    char got2[5];
+    eighthTask(s2, lengthS2, indexes2, got2);
+    char expected2[5] = "apab";
+
+    assert(strcmp(got2, expected2) == 0);
+}
 
 
 int main() {
@@ -431,6 +461,7 @@ int main() {
     test_fifthTask();
     test_sixthTask();
     test_seventhTask();
+    test_eighthTask();
 
     return 0;
 }
