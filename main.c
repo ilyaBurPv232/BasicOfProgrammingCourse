@@ -1,7 +1,8 @@
 #include <assert.h>
 #include "libs/data_structures/matrix/matrix.h"
 #include <malloc.h>
-
+#include "string.h"
+#include "stdio.h"
 
 
 void firstTask(matrix *m, size_t countRequests, size_t *requestsArray[]) {
@@ -148,11 +149,93 @@ void test_thirdTask() {
 
 
 
+
+typedef struct domain {
+    size_t visits;
+    char name[200];
+} domain;
+
+size_t searchDomainInResults(const domain results[], size_t size, char *s) {
+    for
+            (size_t ind = 0; ind < size; ind++) {
+        if (strcmp(results[ind].name, s) == 0) {
+            return ind;
+        }
+    }
+    return size;
+}
+
+bool searchNumFromArray(const size_t array[], size_t length, size_t num) {
+    for (size_t ind = 0; ind < length; ind++) {
+        if (num == array[ind])
+            return true;
+    }
+
+    return false;
+}
+
+void handlerDotPrtNotNull(domain *array, size_t ind, char *dotPtr,
+                          domain results[], size_t *sizeResult) {
+    strcpy(array[ind].name, dotPtr + 1);
+    size_t pos = searchDomainInResults(results, *sizeResult, array[ind].name);
+    if (pos == *sizeResult) {
+        results[*sizeResult] = array[ind];
+        *sizeResult += 1;
+    } else {
+        results[pos].visits += array[ind].visits;
+    }
+}
+
+void outputResultDomains(domain *results, size_t size) {
+    for (size_t ind = 0; ind < size; ind++) {
+        printf("%zd %s\n", results[ind].visits, results[ind].name);
+    }
+}
+
+void fourthTask(domain array[], size_t size) {
+    size_t close_idxs[size];
+    size_t count_close = 0;
+    domain results[200];
+    size_t size_res = 0;
+
+    for (size_t ind = 0; ind < size; ind++)
+        results[size_res++] = array[ind];
+
+    while (count_close != size) {
+        for (size_t ind = 0; ind < size; ind++) {
+            if (!searchNumFromArray(close_idxs, count_close, ind)) {
+                char *dot_ptr;
+                dot_ptr = strchr(array[ind].name, '.');
+
+                if (dot_ptr != NULL)
+                    handlerDotPrtNotNull(array, ind, dot_ptr, results, &size_res);
+                else
+                    close_idxs[count_close++] = ind;
+            }
+        }
+    }
+
+    outputResultDomains(results, size_res);
+}
+
+void test_fourthTask() {
+    size_t size = 4;
+    domain array[4] = {{900, "google.mail.com"},
+                       {50,  "yahoo.com"},
+                       {1,   "intel.mail.com"},
+                       {5,   "wiki.org"}};
+
+    fourthTask(array, size);
+}
+
+
+
 int main() {
 
     test_firstTask();
     test_secondTask();
     test_thirdTask();
+    test_fourthTask();
 
     return 0;
 }
