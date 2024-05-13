@@ -39,13 +39,13 @@ void test_firstTask() {
 }
 
 
-
 bool isIndex(size_t rows, size_t cols, int idx_row, int idx_col) {
     if (idx_row > -1 && idx_row < rows && idx_col > -1 && idx_col < cols)
         return true;
 
     return false;
 }
+
 size_t calculateCountNeighbors(matrix m, int idx_row, int idx_col, size_t
 rows, size_t cols) {
     size_t count_neighbors = 0;
@@ -102,7 +102,6 @@ void test_secondTask() {
 }
 
 
-
 int sortedNumsCompare(const void *first_num, const void *second_num) {
     return (*(int *) first_num - *(int *) second_num);
 }
@@ -146,8 +145,6 @@ void test_thirdTask() {
 
     assert(areTwoMatricesEqual(&got, &expected));
 }
-
-
 
 
 typedef struct domain {
@@ -229,7 +226,6 @@ void test_fourthTask() {
 }
 
 
-
 void fillingCalcMatrix(matrix m, matrix *calc_matrix, size_t rows, size_t cols) {
     for (size_t idx_row = 0; idx_row < rows; idx_row++) {
         for (size_t idx_col = 0; idx_col < cols; idx_col++) {
@@ -295,6 +291,7 @@ void test_fifthTask() {
     assert(result2 == 24);
 }
 
+
 void sixthTask(const char *s, size_t length, char *result, size_t *res_len) {
     char buffer[10];
     size_t buffer_len = 0;
@@ -337,6 +334,93 @@ void test_sixthTask() {
 }
 
 
+typedef struct node {
+    int key;
+    struct node *left;
+    struct node *right;
+} node;
+
+node *createNode(int k) {
+    node *new_node = (node *) malloc(sizeof(node));
+    new_node->key = k;
+    new_node->left = NULL;
+    new_node->right = NULL;
+
+    return new_node;
+}
+
+int searchMaxIdx(const int array[], int start, int end) {
+    if (start > end) {
+        return end + 1;
+    } else {
+        int max_num_idx = start;
+        for (int ind = start + 1; ind <= end; ind++) {
+            if (array[ind] > array[max_num_idx])
+                max_num_idx = ind;
+        }
+
+        return max_num_idx;
+    }
+}
+
+node *insert(node *p, int k, bool isLeft) {
+    node *new_node = createNode(k);
+    if (isLeft)
+        p->left = new_node;
+    else
+        p->right = new_node;
+
+    return new_node;
+}
+
+void buildNodes(node *p, int array[], int start, int end, bool isLeft) {
+    int max_num_idx = searchMaxIdx(array, start, end);
+    if (max_num_idx == end + 1) {
+        if (isLeft)
+            p->left = NULL;
+        else
+            p->right = NULL;
+
+        printf("null ");
+
+        return;
+    } else {
+        printf("%d ", array[max_num_idx]);
+        node *new_node = insert(p, array[max_num_idx], isLeft);
+        buildNodes(new_node, array, start, max_num_idx - 1, true);
+        buildNodes(new_node, array, max_num_idx + 1, end, false);
+    }
+}
+
+void seventhTask(int array[], int lengthArray) {
+    if (lengthArray == 0) {
+        return;
+    } else {
+        int maxNumInd = searchMaxIdx(array, 0, lengthArray - 1);
+        node *newNode = createNode(array[maxNumInd]);
+        printf("%d ", array[maxNumInd]);
+
+        buildNodes(newNode, array, 0, maxNumInd - 1, true);
+        buildNodes(newNode, array, maxNumInd + 1, lengthArray - 1, false);
+
+        printf("\n");
+    }
+}
+
+void test_seventhTask() {
+    int array1[6] = {3, 2, 1, 6, 0, 5};
+    int len1 = 6;
+
+    seventhTask(array1, len1);
+
+    int array2[3] = {3, 2, 1};
+    int len2 = 3;
+
+    seventhTask(array2, len2);
+}
+
+
+
 
 int main() {
 
@@ -346,6 +430,7 @@ int main() {
     test_fourthTask();
     test_fifthTask();
     test_sixthTask();
+    test_seventhTask();
 
     return 0;
 }
