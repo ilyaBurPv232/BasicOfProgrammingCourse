@@ -295,6 +295,47 @@ void test_fifthTask() {
     assert(result2 == 24);
 }
 
+void sixthTask(const char *s, size_t length, char *result, size_t *res_len) {
+    char buffer[10];
+    size_t buffer_len = 0;
+    size_t calc_res_len = 0;
+    char num = '1';
+    for (size_t idx = 0; idx < length; idx++) {
+        buffer[buffer_len++] = num++;
+        if (s[idx] == 'I')
+            while (buffer_len > 0)
+                result[calc_res_len++] = buffer[--buffer_len];
+    }
+
+    buffer[buffer_len++] = num;
+    while (buffer_len > 0)
+        result[calc_res_len++] = buffer[--buffer_len];
+
+    result[calc_res_len] = '\0';
+
+    *res_len = calc_res_len;
+}
+
+void test_sixthTask() {
+    char s1[10] = "IIIDIDDD";
+    size_t length1 = 8;
+    char got1[10];
+    size_t resLength1;
+    sixthTask(s1, length1, got1, &resLength1);
+    char expected1[10] = "123549876";
+
+    assert(strcmp(got1, expected1) == 0);
+
+    char s2[5] = "DDD";
+    size_t length2 = 3;
+    char got2[5];
+    size_t resLength2;
+    sixthTask(s2, length2, got2, &resLength2);
+    char expected2[10] = "4321";
+
+    assert(strcmp(got2, expected2) == 0);
+}
+
 
 
 int main() {
@@ -304,6 +345,7 @@ int main() {
     test_thirdTask();
     test_fourthTask();
     test_fifthTask();
+    test_sixthTask();
 
     return 0;
 }
