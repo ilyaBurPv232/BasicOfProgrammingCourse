@@ -1,5 +1,6 @@
 #include <assert.h>
 #include "libs/data_structures/matrix/matrix.h"
+#include <malloc.h>
 
 
 
@@ -101,10 +102,57 @@ void test_secondTask() {
 
 
 
+int sortedNumsCompare(const void *first_num, const void *second_num) {
+    return (*(int *) first_num - *(int *) second_num);
+}
+
+void fillingNumFrameSorted(int *array, matrix m, size_t idx_row, size_t idx_col) {
+    size_t arrayInd = 0;
+    for (size_t midx_row = idx_row - 1; midx_row < idx_row + 2; midx_row++) {
+        for (size_t midx_col = idx_col - 1; midx_col < idx_col + 2; midx_col++) {
+            if (midx_row != idx_row || midx_col != idx_col)
+                array[arrayInd++] = m.values[midx_row][midx_col];
+        }
+    }
+
+    qsort(array, 8, sizeof(int), sortedNumsCompare);
+}
+
+void thirdTask(matrix *m, size_t size) {
+    int frame[8];
+    for (size_t idx_row = 1; idx_row < size - 1; idx_row++) {
+        for (size_t idx_col = 1; idx_col < size - 1; idx_col++) {
+            fillingNumFrameSorted(frame, *m, idx_row, idx_col);
+            int median = (frame[3] + frame[4]) / 2;
+            m->values[idx_row][idx_col] = median;
+        }
+    }
+}
+
+void test_thirdTask() {
+    size_t size = 3;
+    matrix got = createMatrixFromArray((int[]) {
+                                               10, 20, 30,
+                                               25, 35, 45,
+                                               15, 25, 35},
+                                       3, 3);
+    thirdTask(&got, size);
+    matrix expected = createMatrixFromArray((int[]) {
+                                                    10, 20, 30,
+                                                    25, 25, 45,
+                                                    15, 25, 35},
+                                            3, 3);
+
+    assert(areTwoMatricesEqual(&got, &expected));
+}
+
+
+
 int main() {
 
     test_firstTask();
     test_secondTask();
+    test_thirdTask();
 
     return 0;
 }
