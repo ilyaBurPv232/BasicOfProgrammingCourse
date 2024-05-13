@@ -515,6 +515,38 @@ void test_ninthTask() {
 }
 
 
+void fillingFileWithText(char *fileName, char *text) {
+    FILE *file = openFile(fileName, "w");
+
+    fprintf(file, "%s", text);
+
+    fclose(file);
+}
+
+void tenthTask(char *fileName, size_t count_output_lines, char *text) {
+    fillingFileWithText(fileName, text);
+    FILE *file = openFile(fileName, "r");
+    char line[127];
+    size_t count = 0;
+    while (fgets(line, 127, file) != NULL) {
+        printf("%s", line);
+        count++;
+        if (count == count_output_lines) {
+            printf("Please, press Ctrl + C\n");
+            while (getch() != 3);
+        }
+    }
+}
+
+void test_tenthTask() {
+    char *fileName = "../tenthTask.txt";
+    size_t count_output_lines = 3;
+    char text[200] = "123\n456\n789\n0";
+
+    tenthTask(fileName, count_output_lines, text);
+}
+
+
 int main() {
 
     test_firstTask();
@@ -526,6 +558,7 @@ int main() {
     test_seventhTask();
     test_eighthTask();
     test_ninthTask();
+    test_tenthTask();
 
     return 0;
 }
