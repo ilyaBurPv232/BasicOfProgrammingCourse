@@ -547,6 +547,58 @@ void test_tenthTask() {
 }
 
 
+void eleventhTask(char **dict, char **requests, int *num_in_req, int n, int q) {
+/**
+    int n, q;
+    scanf("%d %d", &n, &q);
+    char dict[n][100], requests[q][100];
+    for (int i = 0; i < n; ++i)
+        scanf("%s", dict[i]);
+
+    int num_in_req[q];
+    for (int i = 0; i < q; ++i)
+        scanf("%d %s", &num_in_req[i], requests[i]);
+**/
+    int temp_pepe = 0;
+    int temp_pepe2 = 0;
+    for (int i = 0; i < q; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (strstr(dict[j], requests[i]) != NULL) {
+                temp_pepe++;
+                temp_pepe2++;
+            } else
+                temp_pepe++;
+
+            if (temp_pepe2 == num_in_req[i]) {
+                printf("%d\n", temp_pepe);
+                break;
+            }
+        }
+
+        if (num_in_req[i] > temp_pepe2) {
+            printf("-1\n");
+            temp_pepe = 0;
+            temp_pepe2 = 0;
+        } else {
+            temp_pepe = 0;
+            temp_pepe2 = 0;
+        }
+    }
+}
+
+
+void test_eleventhTask() {
+    int n = 10;
+    int q = 3;
+    char *dict[100] = {"aa", "aaa", "aab", "ab", "abc", "ac",
+                       "ba", "daa", "dab", "dadba"};
+    char *requests[100] = {"a", "da", "da"};
+    int num_in_req[3] = {4, 2, 4};
+
+    eleventhTask(dict, requests, num_in_req, n, q);
+}
+
+
 int main() {
 
     test_firstTask();
@@ -558,6 +610,7 @@ int main() {
     test_seventhTask();
     test_eighthTask();
     test_ninthTask();
+    test_eleventhTask();
     test_tenthTask();
 
     return 0;
